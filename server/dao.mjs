@@ -52,7 +52,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 export function getPersonalInfo(language = 'it') {
   return new Promise((resolve, reject) => {
     db.get(`
-      SELECT name, bio, email, phone, location 
+      SELECT name, bio, email, phone, location, linkedin, github
       FROM personal_info 
       WHERE language = ?
     `, [language], (err, row) => {

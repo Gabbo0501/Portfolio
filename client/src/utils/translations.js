@@ -78,7 +78,11 @@ export const translations = {
 
     // Contact Section
     contact: {
-      title: 'Contattami'
+      title: 'Contattami',
+      emailTitle: 'Email',
+      linkedinTitle: 'LinkedIn',
+      locationTitle: 'Località',
+      githubTitle: 'GitHub'
     },
 
     // Footer
@@ -174,7 +178,11 @@ export const translations = {
 
     // Contact Section
     contact: {
-      title: 'Contact Me'
+      title: 'Contact Me',
+      emailTitle: 'Email',
+      linkedinTitle: 'LinkedIn',
+      locationTitle: 'Location',
+      githubTitle: 'GitHub'
     },
 
     // Footer

@@ -1,10 +1,31 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import { portfolioAPI } from '../services/api';
 import './Footer.css';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const [personal, setPersonal] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const data = await portfolioAPI.getPortfolioData(language);
+        if (mounted) setPersonal(data.personalInfo || null);
+      } catch (err) {
+        console.error('Unable to load personal info for footer', err);
+      }
+    })();
+
+    return () => { mounted = false; };
+  }, [language]);
+
+  const githubUrl = personal?.github;
+  const linkedinUrl = personal?.linkedin;
+  const email = personal?.email;
 
   return (
     <footer className="bg-dark text-white py-5">
@@ -28,7 +49,7 @@ function Footer() {
             <ul className="list-unstyled">
               <li className="mb-2">
                 <a 
-                  href="https://github.com/gabriele" 
+                  href={githubUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-light text-decoration-none hover-primary"
@@ -38,7 +59,7 @@ function Footer() {
               </li>
               <li className="mb-2">
                 <a 
-                  href="https://linkedin.com/in/gabriele-studente" 
+                  href={linkedinUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-light text-decoration-none hover-primary"
@@ -48,7 +69,7 @@ function Footer() {
               </li>
               <li className="mb-2">
                 <a 
-                  href="mailto:gabriele.studente@example.com"
+                  href={`mailto:${email}`}
                   className="text-light text-decoration-none hover-primary"
                 >
                   <i className="bi bi-envelope me-2"></i>Email

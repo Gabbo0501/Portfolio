@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS personal_info (
     email TEXT,
     phone TEXT,
     location TEXT,
+    linkedin TEXT,
+    github TEXT,
     UNIQUE(language)
 );
 
@@ -118,20 +120,24 @@ CREATE TABLE certifications (
 
 
 -- Insert sample data for Italian
-INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location) VALUES ('it', 
+INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location, linkedin, github) VALUES ('it', 
     'Gabriele Mondino', 
     'Sono Gabriele Mondino, nato il 5 gennaio 2002 a Cuneo. Attualmente sono uno studente magistrale in Ingegneria Informatica (Computer Engineering) al Politecnico di Torino, dopo aver conseguito la laurea triennale. Mi appassiona lo sviluppo software, con particolare interesse per le applicazioni web e mobile.', 
-    'gabriele.mondino@studenti.polito.it', 
+    'gabrielemondino05@gmail.com', 
     '+393200325640', 
-    'Borgo San Dalmazzo (CN), Italia'
+    'Borgo San Dalmazzo (CN), Italia',
+    'https://www.linkedin.com/in/gabriele-mondino-ba6944359?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+    'https://github.com/Gabbo0501'
 );
 
-INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location) VALUES ('en', 
+INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location, linkedin, github) VALUES ('en', 
     'Gabriele Mondino', 
     'I am Gabriele Mondino, born on January 5, 2002 in Cuneo. I am currently a Master student in Computer Engineering at Politecnico di Torino, after completing my Bachelor degree. I am passionate about software development, with particular interest in web and mobile applications.', 
-    'gabriele.mondino@studenti.polito.it', 
+    'gabrielemondino05@gmail.com', 
     '+393200325640', 
-    'Borgo San Dalmazzo (CN), Italy'
+    'Borgo San Dalmazzo (CN), Italy',
+    'https://www.linkedin.com/in/gabriele-mondino-ba6944359?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+    'https://github.com/Gabbo0501'
 );
 
 INSERT OR IGNORE INTO education (language, degree, institution, description, start_year, end_year, gpa) VALUES ('it', 
@@ -219,10 +225,10 @@ INSERT OR IGNORE INTO skills (category_id, technology) VALUES
 
 -- Insert sample projects
 INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('portfolio', 'it', 'Portfolio Personale Multilingua', 'Sito web portfolio sviluppato con React e Node.js, featuring sistema multilingua completo e database SQLite per gestione dinamica dei contenuti.', 'Completato', 'https://github.com/gabrielemondino/portfolio', NULL);
+('portfolio', 'it', 'Portfolio Personale Multilingua', 'Sito web portfolio sviluppato con React e Node.js, featuring sistema multilingua completo e database SQLite per gestione dinamica dei contenuti.', 'Completato', 'https://github.com/Gabbo0501/Portfolio', NULL);
 
 INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('portfolio', 'en', 'Multilingual Personal Portfolio', 'Portfolio website built with React and Node.js, featuring complete multilingual system and SQLite database for dynamic content management.', 'Completed', 'https://github.com/gabrielemondino/portfolio', NULL);
+('portfolio', 'en', 'Multilingual Personal Portfolio', 'Portfolio website built with React and Node.js, featuring complete multilingual system and SQLite database for dynamic content management.', 'Completed', 'https://github.com/Gabbo0501/Portfolio', NULL);
 
 INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
 ('indovina-frase', 'it', 'Indovina la Frase', 'Applicazione web full-stack sviluppata come progetto d''esame per il corso di Applicazioni Web I. Gioco interattivo dove l''utente deve indovinare frasi selezionando le lettere corrette. Include sistema di autenticazione, gestione utenti, database SQLite e interfaccia React moderna con Vite.', 'Completato', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
@@ -231,10 +237,10 @@ INSERT OR IGNORE INTO projects (project_id, language, name, description, status,
 ('indovina-frase', 'en', 'Guess the Phrase', 'Full-stack web application developed as exam project for Web Applications I course. Interactive game where users must guess phrases by selecting correct letters. Features authentication system, user management, SQLite database and modern React interface with Vite.', 'Completed', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
 
 INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('ruggine-chat', 'it', 'Ruggine - Chat Real-time', 'Applicazione di chat real-time sviluppata in team per l''esame di Programmazione di Sistema. Server scritto in Rust con Axum e WebSocket per comunicazione istantanea, client React moderno. Include autenticazione, gestione gruppi, inviti utenti e sistema di logging delle performance CPU.', 'Completato', 'https://github.com/Gabbo0501/ruggine-chat-G47', NULL);
+('ruggine-chat', 'it', 'Ruggine - Chat Real-time', 'Applicazione di chat real-time sviluppata in team per l''esame di Programmazione di Sistema. Server scritto in Rust con Axum e WebSocket per comunicazione istantanea, client React moderno. Include autenticazione, gestione gruppi, inviti utenti e sistema di logging delle performance CPU.', 'In corso', NULL, NULL);
 
 INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('ruggine-chat', 'en', 'Ruggine - Real-time Chat', 'Real-time chat application developed as team project for System Programming exam. Server written in Rust with Axum and WebSocket for instant communication, modern React client. Features authentication, group management, user invitations and CPU performance logging system.', 'Completed', 'https://github.com/Gabbo0501/ruggine-chat-G47', NULL);
+('ruggine-chat', 'en', 'Ruggine - Real-time Chat', 'Real-time chat application developed as team project for System Programming exam. Server written in Rust with Axum and WebSocket for instant communication, modern React client. Features authentication, group management, user invitations and CPU performance logging system.', 'In progress', NULL, NULL);
 
 -- Insert sample project technologies
 INSERT OR IGNORE INTO project_technologies (project_id, technology) VALUES 

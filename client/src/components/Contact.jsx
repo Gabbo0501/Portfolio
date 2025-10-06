@@ -1,9 +1,38 @@
-import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import { portfolioAPI } from '../services/api';
 import './Contact.css';
 
 function Contact() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const [personal, setPersonal] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const data = await portfolioAPI.getPortfolioData(language);
+        if (mounted) setPersonal(data.personalInfo || null);
+      } catch (err) {
+        console.error('Unable to load personal info for contact', err);
+      }
+    })();
+
+    return () => { mounted = false; };
+  }, [language]);
+
+  const name = personal?.name;
+  const email = personal?.email;
+  const linkedin = personal?.linkedin;
+  const location = personal?.location;
+  const github = personal?.github;
+
+  // Safe hrefs and display values
+  const emailUrl = `mailto:${email || 'gabrielemondino05@gmail.com'}`;
+  const linkedinUrl = linkedin || 'https://linkedin.com/in/gabriele-studente';
+  const githubUrl = github || 'https://github.com/Gabbo0501';
+  const githubHandle = githubUrl.replace(/^https?:\/\/(www\.)?github\.com\//i, '');
 
   return (
     <section id="contact" className="contact-section">
@@ -19,24 +48,26 @@ function Contact() {
             <Row className="g-4">
               <Col md={6}>
                 <div className="contact-item" style={{ '--index': 0 }}>
-                  <div className="contact-icon">
+                  <a className="contact-icon" href={emailUrl}>
                     <i className="bi bi-envelope"></i>
-                  </div>
+                  </a>
                   <div className="contact-info">
-                    <h5>Email</h5>
-                    <p>gabrielemondino05@gmail.com</p>
+                    <h5>{t('contact.emailTitle')}</h5>
+                    <p><a href={emailUrl}>{email || 'gabrielemondino05@gmail.com'}</a></p>
                   </div>
                 </div>
               </Col>
               
               <Col md={6}>
                 <div className="contact-item" style={{ '--index': 1 }}>
-                  <div className="contact-icon">
+                  <a className="contact-icon" href={linkedinUrl} target="_blank" rel="noopener noreferrer">
                     <i className="bi bi-linkedin"></i>
-                  </div>
+                  </a>
                   <div className="contact-info">
-                    <h5>LinkedIn</h5>
-                    <p>linkedin.com/in/tuoprofilo</p>
+                    <h5>{t('contact.linkedinTitle')}</h5>
+                    <p>
+                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">{name || linkedinUrl.replace(/^https?:\/\/(www\.)?linkedin\.com\//i, '')}</a>
+                    </p>
                   </div>
                 </div>
               </Col>
@@ -47,20 +78,22 @@ function Contact() {
                     <i className="bi bi-geo-alt"></i>
                   </div>
                   <div className="contact-info">
-                    <h5>Località</h5>
-                    <p>Torino, Italia</p>
+                    <h5>{t('contact.locationTitle')}</h5>
+                    <p>{location}</p>
                   </div>
                 </div>
               </Col>
               
               <Col md={6}>
                 <div className="contact-item" style={{ '--index': 3 }}>
-                  <div className="contact-icon">
+                  <a className="contact-icon" href={githubUrl} target="_blank" rel="noopener noreferrer">
                     <i className="bi bi-github"></i>
-                  </div>
+                  </a>
                   <div className="contact-info">
-                    <h5>GitHub</h5>
-                    <p>github.com/tuousername</p>
+                    <h5>{t('contact.githubTitle')}</h5>
+                    <p>
+                      <a href={githubUrl} target="_blank" rel="noopener noreferrer">{githubHandle}</a>
+                    </p>
                   </div>
                 </div>
               </Col>
