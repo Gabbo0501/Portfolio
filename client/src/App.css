@@ -1,0 +1,177 @@
+:root {
+  --primary-color: #08415C;
+  --secondary-color: #D69E2E;
+  --neutral-color: #EDF2F7;
+  --dark-color: #041e2a;
+  --light-color: #FAFAFA;
+
+  --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+  --gradient-light: linear-gradient(135deg, var(--light-color) 0%, var(--neutral-color) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--secondary-color) 0%, #B7791F 100%);
+  --gradient-dark: linear-gradient(135deg, var(--dark-color) 0%, #102A43 100%);
+  
+  --font-family-primary: 'Playfair Display', serif;
+  --font-family-secondary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  
+  --section-padding: 5rem 0;
+  --container-padding: 1rem;
+  --border-radius: 0.75rem;
+  --border-radius-lg: 1.25rem;
+  
+  --shadow-sm: 0 2px 15px rgba(26, 54, 93, 0.08);
+  --shadow-md: 0 8px 25px rgba(26, 54, 93, 0.12);
+  --shadow-lg: 0 15px 35px rgba(26, 54, 93, 0.15);
+  --shadow-xl: 0 25px 50px rgba(26, 54, 93, 0.2);
+  
+  --transition-base: all 0.3s ease;
+  --transition-fast: all 0.2s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-secondary);
+  line-height: 1.6;
+  color: var(--dark-color);
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.font-primary {
+  font-family: var(--font-family-primary);
+}
+
+.font-secondary {
+  font-family: var(--font-family-secondary);
+}
+
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-color) !important;
+}
+
+
+.bg-dark {
+  background: var(--dark-color) !important;
+}
+
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-light {
+  background: var(--gradient-light);
+}
+
+.bg-gradient-accent {
+  background: var(--gradient-accent);
+}
+
+.bg-gradient-dark {
+  background: var(--gradient-dark);
+}
+
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shadow-custom {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-custom-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-lift {
+  transition: var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-primary:hover {
+  color: var(--secondary-color) !important;
+  transition: var(--transition-fast);
+}
+
+.card-custom {
+  border: none;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+}
+
+.card-custom:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.fade-in-1 { animation: fadeInUp 1s ease-out 0.1s both; }
+.fade-in-2 { animation: fadeInUp 1s ease-out 0.3s both; }
+.fade-in-3 { animation: fadeInUp 1s ease-out 0.5s both; }
+.fade-in-5 { animation: fadeInUp 1s ease-out 0.9s both; }
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 3rem 0;
+  }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+.badge.bg-secondary {
+  background-color: var(--secondary-color) !important;
+}
+
+.badge.bg-primary {
+  background-color: var(--primary-color) !important;
+}

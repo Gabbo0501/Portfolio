@@ -1,0 +1,80 @@
+.language-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.language-btn {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-base);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.language-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: white;
+}
+
+.language-btn:active {
+  transform: translateY(0);
+}
+
+.flag-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+  display: block;
+  transition: var(--transition-fast);
+}
+
+.language-text {
+  font-family: var(--font-family-secondary);
+  letter-spacing: 0.5px;
+  min-width: 20px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .language-toggle {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  
+  .language-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .flag-icon {
+    font-size: 1rem;
+  }
+}
+
+.flag-icon {
+  animation: flagSwitch 0.3s ease-in-out;
+}
+
+@keyframes flagSwitch {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}

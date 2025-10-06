@@ -1,0 +1,280 @@
+/* ===========================
+   ABOUT COMPONENT STYLES
+   =========================== */
+
+/* Section Background */
+#about {
+  background: linear-gradient(135deg, #FAFAFA 0%, #EDF2F7 50%, #FAFAFA 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+#about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(8, 65, 92, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 65, 92, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 1;
+}
+
+#about .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Title */
+.about-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #08415C;
+  margin-bottom: 3rem;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.about-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: #D69E2E;
+  border-radius: 2px;
+}
+
+/* Bio Section */
+.about-bio {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #041e2a;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #08415C;
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.section-header i {
+  color: #D69E2E;
+  font-size: 2.2rem;
+}
+
+/* Education Timeline */
+.education-card {
+  background: white;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(8, 65, 92, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out both;
+  animation-delay: calc(0.6s + var(--index) * 0.1s);
+}
+
+.education-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0px;
+  height: 100%;
+  background: transparent;
+}
+
+.education-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(8, 65, 92, 0.15);
+}
+
+.education-icon {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  background: #08415C;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: white;
+  box-shadow: 0 6px 20px rgba(214, 158, 46, 0.3);
+}
+
+.education-content {
+  padding: 1.5rem;
+}
+
+.education-degree {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #041e2a;
+  margin-bottom: 0.5rem;
+}
+
+.education-institution {
+  font-size: 1.1rem;
+  color: #08415C;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.education-badge {
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.education-badge.in-progress {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.education-description {
+  color: #555;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* Interest Cards */
+.interest-card {
+  background: white;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(8, 65, 92, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out both;
+  animation-delay: calc(0.8s + var(--index) * 0.1s);
+}
+
+.interest-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0px;
+  background: transparent;
+}
+
+.interest-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(8, 65, 92, 0.2);
+}
+
+.interest-icon {
+  font-size: 4rem;
+  color: #D69E2E;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.interest-card:hover .interest-icon {
+  transform: scale(1.1);
+  color: #08415C;
+}
+
+.interest-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #041e2a;
+  margin-bottom: 1rem;
+}
+
+.interest-description {
+  color: #555;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* Loading State */
+.about-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(8, 65, 92, 0.1);
+  border-top: 3px solid #08415C;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 2.5rem;
+  }
+  
+  .about-bio {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+  
+  .section-header {
+    font-size: 1.75rem;
+  }
+  
+  .education-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    font-size: 1.1rem;
+  }
+  
+  .interest-icon {
+    font-size: 3rem;
+  }
+  
+  .interest-card:hover {
+    transform: translateY(-5px) scale(1.01);
+  }
+}
