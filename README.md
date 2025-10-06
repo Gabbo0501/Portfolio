@@ -2,9 +2,6 @@
 
 Un portfolio web single-page per studenti universitari di Informatica, sviluppato con React (frontend) e Express (backend).
 
-## 🚀 Tecnologie Utilizzate
-
-### Frontend
 # Portfolio personale — Gabriele Mondino
 
 Un portfolio web (Single Page Application) sviluppato come progetto personale universitario. Frontend in React + Vite, backend in Node.js/Express e dati memorizzati in SQLite.
