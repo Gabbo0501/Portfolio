@@ -5,157 +5,101 @@ Un portfolio web single-page per studenti universitari di Informatica, sviluppat
 ## 🚀 Tecnologie Utilizzate
 
 ### Frontend
-- **React** - Libreria JavaScript per l'interfaccia utente
-- **Vite** - Build tool veloce per lo sviluppo
-- **Axios** - Client HTTP per le chiamate API
-- **CSS3** - Styling moderno e responsive con gradients e animazioni
+# Portfolio personale — Gabriele Mondino
 
-### Backend
-- **Node.js** - Runtime JavaScript
-- **Express** - Framework web per Node.js
-- **CORS** - Middleware per cross-origin requests
-- **Morgan** - Logger HTTP
+Un portfolio web (Single Page Application) sviluppato come progetto personale universitario. Frontend in React + Vite, backend in Node.js/Express e dati memorizzati in SQLite.
 
-## 📁 Struttura del Progetto
+Questo repository contiene il codice del sito, il server API che fornisce i contenuti in modalità multilingua (it/en) e lo schema SQL per popolare il database locale.
 
-```
-portfolio/
-├── client/                 # Frontend React (Single Page)
-│   ├── src/
-│   │   ├── components/     # Hero, About, Courses, Projects, Skills, Contact
-│   │   ├── services/       # API per comunicazione con server
-│   │   └── App.jsx        # App principale single-page
-│   └── package.json
-├── server/                 # Backend Express API
-│   ├── index.mjs          # Server con dati portfolio
-│   └── package.json
-├── .vscode/               # Task VS Code
-└── README.md
-```
+## Cosa c'è qui
+- `client/` – codice frontend React (Vite)
+- `server/` – server Node.js (Express) + accesso a SQLite
+- `server/database/schema.sql` – schema e seed data per il DB
+- `server/database/portfolio.db` – file DB generato in locale
 
-## 🛠️ Installazione e Avvio
+## Tecnologie
+- Frontend: React, Vite, React-Bootstrap
+- Backend: Node.js, Express, sqlite3
+- Styling: CSS + Bootstrap icons
 
-### Prerequisiti
-- Node.js (versione 16 o superiore)
-- npm
+## Requisiti
+- Node.js v16+ (consigliato)
+- npm o yarn
 
-### 1. Installa le dipendenze
+## Setup e avvio (sviluppo)
+Segui questi passaggi nella tua shell (PowerShell su Windows consigliato).
 
-```bash
-# Server
+1) Installa dipendenze
+
+```powershell
+# Dal root del repository
 cd server
 npm install
 
-# Client  
-cd ../client
+cd ..\client
 npm install
 ```
 
-### 2. Avvia l'applicazione
+2) Avvia server e client (in terminali separati)
 
-Opzione 1 - Task VS Code (Raccomandato):
-- Apri il progetto in VS Code
-- Vai su Terminal → Run Task → "Start Portfolio (Server + Client)"
-
-Opzione 2 - Terminali separati:
-```bash
-# Terminal 1 - Server (porta 3001)
+```powershell
+# Terminale 1 — server (porta 3001)
 cd server
 npm run dev
 
-# Terminal 2 - Client (porta 5173)
+# Terminale 2 — client (porta 5173)
 cd client
 npm run dev
 ```
 
-## 📖 Sezioni del Portfolio
+Nota: lo script `npm run dev` potrebbe usare `nodemon` o `vite` a seconda dei pacchetti installati.
 
-### 🏠 Hero Section
-- Presentazione personale
-- Call-to-action buttons con smooth scrolling
+## Database (SQLite)
+- Lo schema si trova in `server/database/schema.sql`.
+- Se il server rileva che lo schema è più recente del DB, può ricreare il DB (se presente una logica di inizializzazione). ATTENZIONE: la ricreazione è distruttiva per i dati locali.
+- Se vuoi aggiornare il DB senza cancellarlo, usa comandi SQLite per aggiungere colonne (es. `ALTER TABLE`) oppure popola manualmente usando `sqlite3`.
 
-### 👨‍🎓 Chi Sono
-- Biografia dello studente
-- Informazioni di contatto
-- Percorso formativo
-- Interessi e obiettivi
+Consiglio rapido per ricreare (distruttivo)
 
-### 📚 Corsi Universitari
-- Lista corsi sostenuti con voti
-- Codici corso e CFU
-- Argomenti trattati
-- Statistiche accademiche
+```powershell
+# Fermare il server
+cd server
+Remove-Item .\database\portfolio.db -Force -ErrorAction SilentlyContinue
+# Avviare il server per far partire l'inizializzazione dal schema
+npm run dev
+```
 
-### 🚀 Progetti
-- Portfolio progetti universitari e personali
-- Tecnologie utilizzate
-- Link a repository GitHub
-- Status del progetto
+## API principali
+- `GET /api/portfolio/:lang` — ritorna tutti i dati per la lingua richiesta (`it` o `en`)
 
-### 💻 Competenze Tecniche
-- Linguaggi di programmazione
-- Frameworks e librerie
-- Tools e metodologie
-- Obiettivi di apprendimento
+Esempio: `GET http://localhost:3001/api/portfolio/it`
 
-### 📧 Contatti
-- Form di contatto funzionale
-- Informazioni di contatto
-- Link social
+## Internazionalizzazione
+- I contenuti leggono `language` (`it` / `en`) e il server restituisce i testi corrispondenti (personal_info, education, courses, projects, skills, certifications).
 
-## 🎨 Caratteristiche Design
+## Modificare i contenuti
+- Per aggiungere/modificare dati persistenti, aggiorna `server/database/schema.sql` (sezioni INSERT) e ricrea il DB o usa `sqlite3` per operazioni mirate.
 
-- **Single Page Application** - Navigazione fluida con smooth scrolling
-- **Responsive Design** - Ottimizzato per tutti i dispositivi
-- **Gradients Moderni** - Design colorato e accattivante
-- **Animazioni CSS** - Hover effects e transizioni
-- **Layout Professionale** - Perfetto per studenti universitari
+## Sviluppo e debugging rapido
+- Controlla i log del server (console) per errori SQL o mancati campi.
+- Se vedi errori come `no such column` o `no such table`, significa che lo schema e il DB non sono in sync.
 
-## 🔧 Personalizzazione
+## Suggerimenti utili
+- Mantieni il DB all'interno di `server/database` per semplicità.
+- Non committare il file `portfolio.db` con dati sensibili; se vuoi, aggiungilo a `.gitignore`.
 
-Per adattare il portfolio ai tuoi dati:
+## Contribuire
+- Forka il repository, crea una branch feature, apri una Pull Request.
+- Se apporti modifiche allo schema SQL, documentalo nel README e fornisci istruzioni per migrazione.
 
-1. **Dati Personali**: Modifica `server/index.mjs` - sezione `personalInfo`
-2. **Corsi**: Aggiorna array `courses` con i tuoi esami
-3. **Progetti**: Sostituisci array `projects` con i tuoi lavori
-4. **Competenze**: Modifica array `skills` con le tue tecnologie
-5. **Colori**: Personalizza i gradients nei file CSS
-6. **Contatti**: Aggiorna email e link social
+## Troubleshooting (problemi comuni)
+- Errore `SQLITE_ERROR: 8 values for 6 columns`: controlla gli INSERT in `server/database/schema.sql` — il numero di colonne dichiarate deve corrispondere ai valori.
+- Errore `SQLITE_MISUSE: Database is closed`: potrebbe essere dovuto a logica che chiude il db e poi lo usa; riavviare il server dopo ricreazione DB aiuta.
 
-## 📱 API Endpoints
+## Contatti
+- Autore: Gabriele Mondino
+- Email: gabriele.mondino@studenti.polito.it
 
-- `GET /api/portfolio` - Tutti i dati del portfolio
-- `POST /api/contact` - Invio messaggi dal form contatti  
-- `GET /api/health` - Health check server
+---
 
-## 🚀 Deploy
-
-### Client (Frontend)
-- **Vercel** - Deploy automatico da GitHub
-- **Netlify** - Hosting statico
-- **GitHub Pages** - Gratuito per progetti pubblici
-
-### Server (Backend)  
-- **Railway** - Deploy facile per Node.js
-- **Render** - Piano gratuito disponibile
-- **Heroku** - Piattaforma consolidata
-
-## 📝 Utilizzo Accademico
-
-Questo portfolio è ideale per:
-- Studenti di Informatica / Ingegneria del Software
-- Progetti universitari di Programmazione Web
-- Tirocini e stage in aziende tech
-- Presentazioni durante colloqui di lavoro
-- Candidature per master/dottorati
-
-## 📞 Supporto
-
-**Gabriele** - [gabriele.studente@example.com](mailto:gabriele.studente@example.com)
-
-## 🙏 Tecnologie e Risorse
-
-- [React](https://reactjs.org/) - UI Library
-- [Express](https://expressjs.com/) - Web Framework
-- [Vite](https://vitejs.dev/) - Build Tool
-- Design ispirato a portfolio universitari moderni
+Se vuoi, posso aggiungere una sezione in inglese o includere istruzioni CI/CD per deploy su Vercel / Railway.
