@@ -1,0 +1,9 @@
+gabrielemondino.it {
+    # Route API requests to the server container
+    reverse_proxy /api/* portfolio_server:3001
+
+    # Serve static frontend from client container
+    reverse_proxy * portfolio_client:80
+
+    encode gzip
+}
