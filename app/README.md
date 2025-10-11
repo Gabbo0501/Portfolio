@@ -46,6 +46,35 @@ cd client
 npm run dev
 ```
 
+2) Rendere consistente le modifiche locali su VM
+
+```powershell
+# Da root del repository
+cd scripts
+powershell -NoProfile -ExecutionPolicy Bypass -File .\deploy_local.ps1
+
+# (opzionale) copia lo script di deploy sulla VM se non è già presente
+scp -i "C:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" "..\scripts\deploy_vm.sh" ubuntu@129.152.14.247:~
+
+# connessione alla VM
+ssh -i "C:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" ubuntu@129.152.14.247
+
+# Nella VM: verifica ed esegui lo script con bash (non serve chmod se lo invochi con bash)
+ls -la ~/deploy_vm.sh
+bash ~/deploy_vm.sh portfolio-images.tar
+
+# pulizia nella VM (dopo deploy riuscito)
+rm ~/portfolio-images.tar
+
+# pulizia locale (esegui da `scripts`)
+Remove-Item ..\app\portfolio-images.tar
+
+# per rollback se qualcosa va storto nella VM
+sudo docker stop portfolio_server portfolio_client
+ls -lh ~/backups
+cp ~/backups/portfolio.db.20251011-131000 ~/portfolio_data/server/database/portfolio.db #portfolio.db.20251011-131000 è un es.
+```
+
 ## Database (SQLite)
 - Lo schema si trova in `server/database/schema.sql`.
 - Il db locale si trova in `server/database/portfolio.sql`.
