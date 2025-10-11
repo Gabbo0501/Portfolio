@@ -1,0 +1,29 @@
+# connetti alla vm
+ssh -i "C:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" ubuntu@129.152.14.247
+
+cd /opt/portfolio            # o la cartella dove hai clonato
+git pull origin main
+
+# (backup DB) -> già mostrato sopra
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+cp ~/portfolio_data/server/database/portfolio.db ~/backups/portfolio.db.$TIMESTAMP
+
+# ricostruisci e riavvia con compose (no downtime di norma)
+sudo docker compose -f docker-compose.prod.yml up -d --build --remove-orphans
+
+# controlli
+sudo docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+sudo docker logs --tail 200 portfolio_server
+sudo docker logs --tail 200 portfolio_client
+
+#test post-deploy
+sudo docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+sudo docker logs --tail 200 portfolio_server
+sudo docker logs --tail 200 portfolio_client
+curl -I http://127.0.0.1:80
+curl -v http://127.0.0.1:3001/api/portfolio/it
+
+#dal mio pc
+Test-NetConnection -ComputerName 129.152.14.247 -Port 80
+curl -v http://129.152.14.247/
+curl -v http://129.152.14.247:3001/api/portfolio/it
