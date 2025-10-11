@@ -1,0 +1,28 @@
+# Repository-level .gitignore
+
+# Sensitive keys and secrets
+ssh-key-*.key
+*.key
+*.pem
+*.p12
+*.crt
+.env
+.env.*
+
+# Public keys and scripts folder
+*.pub
+scripts/
+
+# Node / front-end
+node_modules/
+dist/
+build/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
