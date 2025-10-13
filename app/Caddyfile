@@ -1,9 +1,15 @@
 gabrielemondino.it {
-    # Route API requests to the server container
-    reverse_proxy /api/* portfolio_server:3001
+    # Route API requests to the local server port (server is bound to host:3001)
+    reverse_proxy /api/* 127.0.0.1:3001
 
-    # Serve static frontend from client container
-    reverse_proxy * portfolio_client:80
+    # Serve static frontend from the local client (nginx) bound to host:80
+    reverse_proxy 127.0.0.1:80
 
     encode gzip
+
+    log {
+        output file /var/log/caddy/access.log
+        format single_field common_log
+        level INFO
+    }
 }
