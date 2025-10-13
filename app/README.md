@@ -1,7 +1,3 @@
-# Portfolio Studente Universitario
-
-Un portfolio web single-page per studenti universitari di Informatica, sviluppato con React (frontend) e Express (backend).
-
 # Portfolio personale — Gabriele Mondino
 
 Un portfolio web (Single Page Application) sviluppato come progetto personale universitario. Frontend in React + Vite, backend in Node.js/Express e dati memorizzati in SQLite.
@@ -21,7 +17,6 @@ Questo repository contiene il codice del sito, il server API che fornisce i cont
 - Node.js v16+ (consigliato)
 
 ## Setup e avvio (sviluppo)
-Segui questi passaggi nella tua shell (PowerShell su Windows consigliato).
 
 1) Installa dipendenze
 
@@ -46,33 +41,39 @@ cd client
 npm run dev
 ```
 
-2) Rendere consistente le modifiche locali su VM
+2) Deploy rapido sulla VM (workflow minimo — copia/incolla)
+
+Dal tuo PC (PowerShell) — costruisci, salva e trasferisci le immagini + file di deploy sulla VM:
 
 ```powershell
-# Da root del repository
+# 1) Dal PC: builda, salva e carica immagini + file (compresa Caddyfile)
 cd scripts
 powershell -NoProfile -ExecutionPolicy Bypass -File .\deploy_local.ps1
 
-# (opzionale) copia lo script di deploy sulla VM se non è già presente
-scp -i "C:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" "..\scripts\deploy_vm.sh" ubuntu@129.152.14.247:~
+# 2) Sulla VM (SSH): entra nella cartella dell'app e porta su lo stack
+ssh -i "/path/to/ssh-key.pem" ubuntu@129.152.14.247
 
-# connessione alla VM
-ssh -i "C:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" ubuntu@129.152.14.247
+cd ~/Portfolio/app
+sudo docker network create portfolio_net || true
 
-# Nella VM: verifica ed esegui lo script con bash (non serve chmod se lo invochi con bash)
-ls -la ~/deploy_vm.sh
-bash ~/deploy_vm.sh portfolio-images.tar
+# Preferisci il plugin moderno se disponibile, altrimenti fallback al legacy
+# Plugin moderno:
+sudo docker compose pull --ignore-pull-failures || true
+sudo docker compose up -d --remove-orphans --build || true
 
-# pulizia nella VM (dopo deploy riuscito)
-rm ~/portfolio-images.tar
+# Fallback legacy:
+sudo docker-compose pull --ignore-pull-failures || true
+sudo docker-compose up -d --remove-orphans --build || true
 
-# pulizia locale (esegui da `scripts`)
-Remove-Item ..\app\portfolio-images.tar
+# 3) Se hai modificato solo la Caddyfile: ricrea solo caddy (plugin -> legacy -> run)
+sudo docker compose up -d --no-deps --force-recreate caddy || \
+  sudo docker-compose up -d --no-deps --force-recreate caddy || \
+  (sudo docker rm -f caddy || true; sudo docker run -d --name caddy --restart unless-stopped --network portfolio_net -p 80:80 -p 443:443 -v ~/Portfolio/app/Caddyfile:/etc/caddy/Caddyfile:ro -v caddy_data:/data -v caddy_config:/config caddy:2)
 
-# per rollback se qualcosa va storto nella VM
-sudo docker stop portfolio_server portfolio_client
-ls -lh ~/backups
-cp ~/backups/portfolio.db.20251011-131000 ~/portfolio_data/server/database/portfolio.db #portfolio.db.20251011-131000 è un es.
+# 4) Controlli e pulizia
+sudo docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+sudo docker logs --tail 200 caddy
+rm ~/portfolio-images.tar || true
 ```
 
 ## Database (SQLite)
