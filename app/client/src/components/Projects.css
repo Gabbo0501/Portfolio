@@ -349,18 +349,28 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .projects-section .container {
+    padding: 0 1rem;
+  }
+  
   .projects-title {
     font-size: 2.5rem;
   }
   
   .projects-intro {
     font-size: 1.1rem;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
   
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+    padding: 0;
+  }
+  
+  .project-card {
+    max-width: 100%;
+    width: 100%;
   }
   
   .project-content {
@@ -385,6 +395,7 @@
   
   .projects-note {
     padding: 2rem 1.5rem;
+    margin: 3rem 0 0 0;
   }
   
   .project-card:hover {

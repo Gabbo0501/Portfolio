@@ -173,17 +173,17 @@ function Courses() {
                             </div>
                           </div>
                         </td>
-                        <td className="text-center">
+                        <td className="text-center" data-label={t('courses.credits')}>
                           <span className="exam-badge credits">
                             {exam.credits}
                           </span>
                         </td>
-                        <td className="text-center">
+                        <td className="text-center" data-label={t('courses.grade')}>
                           <span className="exam-badge grade">
                             {exam.grade}
                           </span>
                         </td>
-                        <td className="text-center exam-date">
+                        <td className="text-center exam-date" data-label={t('courses.date')}>
                           {new Date(exam.date.split('/').reverse().join('-')).toLocaleDateString(language === 'it' ? 'it-IT' : 'en-US', {
                             day: '2-digit',
                             month: 'short',
@@ -251,17 +251,17 @@ function Courses() {
                             </div>
                           </div>
                         </td>
-                        <td className="text-center">
+                        <td className="text-center" data-label={t('courses.credits')}>
                           <span className="exam-badge credits">
                             {exam.credits}
                           </span>
                         </td>
-                        <td className="text-center">
+                        <td className="text-center" data-label={t('courses.grade')}>
                           <span className="exam-badge grade">
                             {exam.grade}
                           </span>
                         </td>
-                        <td className="text-center exam-date">
+                        <td className="text-center exam-date" data-label={t('courses.date')}>
                           {new Date(exam.date.split('/').reverse().join('-')).toLocaleDateString(language === 'it' ? 'it-IT' : 'en-US', {
                             day: '2-digit',
                             month: 'short',

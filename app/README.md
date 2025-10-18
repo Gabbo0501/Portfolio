@@ -46,24 +46,8 @@ npm run dev
 Dal tuo PC (PowerShell) — costruisci, salva e trasferisci le immagini + file di deploy sulla VM:
 
 ```powershell
-# 1) Dal PC: builda, salva e carica immagini + file (compresa Caddyfile)
-cd scripts
-powershell -NoProfile -ExecutionPolicy Bypass -File .\deploy_local.ps1
-
-# 2) Sulla VM (SSH): entra nella cartella dell'app e porta su lo stack
-ssh -i "/path/to/ssh-key.pem" ubuntu@129.152.14.247
-
-cd ~/Portfolio/app
-sudo docker network create portfolio_net || true
-
-# Preferisci il plugin moderno se disponibile, altrimenti fallback al legacy
-# Plugin moderno:
-sudo docker compose pull --ignore-pull-failures || true
-sudo docker compose up -d --remove-orphans --build || true
-
-# Fallback legacy:
-sudo docker-compose pull --ignore-pull-failures || true
-sudo docker-compose up -d --remove-orphans --build || true
+cd "c:\Users\gabri\OneDrive\Documenti\Portfolio\scripts"; powershell -NoProfile -ExecutionPolicy Bypass -File .\deploy_local.ps1
+ssh -i "c:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" ubuntu@129.152.14.247 "bash ~/deploy_vm.sh portfolio-images.tar"
 
 # 3) Se hai modificato solo la Caddyfile: ricrea solo caddy (plugin -> legacy -> run)
 sudo docker compose up -d --no-deps --force-recreate caddy || \
