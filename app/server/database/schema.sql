@@ -231,42 +231,91 @@ INSERT OR IGNORE INTO projects (project_id, language, name, description, status,
 ('portfolio', 'en', 'Multilingual Personal Portfolio', 'Portfolio website built with React and Node.js, featuring complete multilingual system and SQLite database for dynamic content management.', 'Completed', 'https://github.com/Gabbo0501/Portfolio', NULL);
 
 INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('indovina-frase', 'it', 'Indovina la Frase', 'Applicazione web full-stack sviluppata come progetto d''esame per il corso di Applicazioni Web I. Gioco interattivo dove l''utente deve indovinare frasi selezionando le lettere corrette. Include sistema di autenticazione, gestione utenti, database SQLite e interfaccia React moderna con Vite.', 'Completato', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
+('indovina-frase', 'it', 'Indovina la Frase', 'Applicazione web full-stack sviluppata come progetto d''esame per il corso di Applicazioni Web I. Gioco interattivo dove l''utente deve indovinare frasi selezionando le lettere corrette. Include sistema di autenticazione, gestione utenti, database SQLite e interfaccia React.', 'Completato', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
 
 INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('indovina-frase', 'en', 'Guess the Phrase', 'Full-stack web application developed as exam project for Web Applications I course. Interactive game where users must guess phrases by selecting correct letters. Features authentication system, user management, SQLite database and modern React interface with Vite.', 'Completed', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
+('indovina-frase', 'en', 'Guess the Phrase', 'Full-stack web application developed as exam project for Web Applications I course. Interactive game where users must guess phrases by selecting correct letters. Features authentication system, user management, SQLite database and React interface.', 'Completed', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
 
-INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('ruggine-chat', 'it', 'Ruggine - Chat Real-time', 'Applicazione di chat real-time sviluppata in team per l''esame di Programmazione di Sistema. Server scritto in Rust con Axum e WebSocket per comunicazione istantanea, client React moderno. Include autenticazione, gestione gruppi, inviti utenti e sistema di logging delle performance CPU.', 'In corso', NULL, NULL);
+INSERT OR IGNORE INTO projects 
+(project_id, language, name, description, status, github_url, demo_url) 
+VALUES 
+(
+'participium',
+'it',
+'Participium - Citizen Reporting Platform',
+'Applicazione web full-stack per la gestione di segnalazioni urbane sviluppata per il Comune di Torino. Consente ai cittadini di inviare report geolocalizzati con foto, seguire lo stato delle segnalazioni e ricevere notifiche (email e Telegram). Include gestione ruoli, workflow di approvazione e integrazione con bot Telegram.',
+'Completato',
+"https://github.com/Beccio00/participium",
+NULL
+);
 
-INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('ruggine-chat', 'en', 'Ruggine - Real-time Chat', 'Real-time chat application developed as team project for System Programming exam. Server written in Rust with Axum and WebSocket for instant communication, modern React client. Features authentication, group management, user invitations and CPU performance logging system.', 'In progress', NULL, NULL);
+INSERT OR IGNORE INTO projects 
+(project_id, language, name, description, status, github_url, demo_url) 
+VALUES 
+(
+'participium',
+'en',
+'Participium - Citizen Reporting Platform',
+'Full-stack web application for urban issue reporting developed for the Municipality of Turin. Citizens can submit geolocated reports with photos, track status updates, and receive email and Telegram notifications. Features role-based access control, approval workflow, and Telegram bot integration.',
+'Completed',
+"https://github.com/Beccio00/participium",
+NULL
+);
+
+INSERT OR IGNORE INTO projects 
+(project_id, language, name, description, status, github_url, demo_url) 
+VALUES 
+(
+'document-portal-ms',
+'it',
+'Company Document Portal - Architettura a Microservizi',
+'Sistema distribuito per la gestione documentale aziendale basato su microservizi. Permette upload resumable (TUS), versioning immutabile, gestione metadata, ricerca avanzata, condivisione con controllo accessi basato su ruoli (OAuth2/OIDC), processing asincrono tramite Kafka e pipeline AI monitorabili con osservabilità e tracing distribuito.',
+'In corso',
+NULL,
+NULL
+);
+
+INSERT OR IGNORE INTO projects 
+(project_id, language, name, description, status, github_url, demo_url) 
+VALUES 
+(
+'document-portal-ms',
+'en',
+'Company Document Portal - Microservices Architecture',
+'Distributed microservices-based document management system for secure corporate collaboration. Supports resumable uploads (TUS), immutable versioning, metadata management, role-based access control (OAuth2/OIDC), asynchronous processing via Kafka, AI-powered document analysis, and full observability with monitoring and distributed tracing.',
+'In progress',
+NULL,
+NULL
+);
 
 -- Insert sample project technologies
 INSERT OR IGNORE INTO project_technologies (project_id, technology) VALUES 
-('portfolio', 'React'),
-('portfolio', 'Node.js'),
-('portfolio', 'SQLite'),
-('portfolio', 'Express'),
-('portfolio', 'Bootstrap'),
 ('portfolio', 'JavaScript'),
+('portfolio', 'React'),
+('portfolio', 'Express'),
+('portfolio', 'SQLite'),
+('indovina-frase', 'JavaScript'),
 ('indovina-frase', 'React'),
-('indovina-frase', 'Vite'),
-('indovina-frase', 'Node.js'),
 ('indovina-frase', 'Express'),
 ('indovina-frase', 'SQLite'),
-('indovina-frase', 'JavaScript'),
-('indovina-frase', 'CSS3'),
-('indovina-frase', 'Bootstrap'),
-('indovina-frase', 'Authentication'),
-('ruggine-chat', 'Rust'),
-('ruggine-chat', 'Axum'),
-('ruggine-chat', 'WebSocket'),
-('ruggine-chat', 'React'),
-('ruggine-chat', 'Vite'),
-('ruggine-chat', 'SQLite'),
-('ruggine-chat', 'Real-time'),
-('ruggine-chat', 'Team Development');
+('participium', 'Typescript'),
+('participium', 'React'),
+('participium', 'Leaflet.js'),
+('participium', 'Express'),
+('participium', 'TypeORM'),
+('participium', 'PostgreSQL'),
+('participium', 'MinIO'),
+('participium', 'Telegram Bot API'),
+('document-portal-ms', 'Kotlin'),
+('document-portal-ms', 'Gradle'),
+('document-portal-ms', 'Spring Boot'),
+('document-portal-ms', 'Kafka'),
+('document-portal-ms', 'TUS Protocol'),
+('document-portal-ms', 'OAuth2/OIDC'),
+('document-portal-ms', 'Keycloak'),
+('document-portal-ms', 'AI Document Analysis'),
+('document-portal-ms', 'Prometheus & Grafana'),
+('document-portal-ms', 'PostgreSQL');
 
 -- Insert sample courses
 INSERT OR IGNORE INTO courses (course_code, language, name, description, semester, year, credits, grade, url, is_featured) VALUES 
