@@ -5,6 +5,10 @@ gabrielemondino.it www.gabrielemondino.it {
         reverse_proxy http://portfolio_server:3001
     }
 
+    route /images/* {
+        reverse_proxy http://portfolio_server:3001
+    }
+
     route /* {
         reverse_proxy http://portfolio_client:80
     }

@@ -612,6 +612,11 @@
     font-size: 0.875rem;
     min-width: 160px;
   }
+
+  /* Hide curve on mobile */
+  .title-curve {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -631,5 +636,100 @@
   
   @keyframes expandWidth {
     to { width: 150px; }
+  }
+}
+
+/* ===== LANDSCAPE MOBILE / NEST HUB ===== */
+@media (max-height: 600px) and (orientation: landscape) {
+  .title-section {
+    min-height: auto;
+    padding: 1rem 0 2rem;
+  }
+
+  .static-nav {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin: 0.5rem auto;
+    width: fit-content;
+  }
+
+  .static-nav.nav-scrolled {
+    top: 0;
+  }
+
+  /* Disable collapse behavior in landscape */
+  .static-nav.nav-scrolled .nav-container {
+    padding: 0.3rem 0.8rem;
+    gap: 0.4rem;
+    cursor: default;
+  }
+
+  .static-nav.nav-scrolled .nav-container .nav-item,
+  .static-nav.nav-scrolled .nav-container .language-toggle {
+    pointer-events: auto;
+  }
+
+  .static-nav.nav-scrolled .nav-container .nav-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    background: transparent;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    overflow: visible;
+    border-radius: 12px;
+  }
+
+  .static-nav.nav-scrolled .nav-container .nav-btn .flag-icon {
+    font-size: 0.85rem;
+  }
+
+  .nav-container {
+    padding: 0.3rem 0.8rem;
+    gap: 0.4rem;
+  }
+
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .hero-content {
+    padding: 0.5rem 1rem 1rem;
+  }
+
+  .hero-greeting {
+    margin-bottom: 0.25rem;
+  }
+
+  .name-text {
+    font-size: 2rem;
+  }
+
+  .role-text {
+    font-size: 1rem;
+  }
+
+  .description-text {
+    font-size: 0.9rem;
+  }
+
+  .hero-actions {
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .cta-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    min-width: 120px;
+  }
+
+  .title-curve {
+    display: none;
   }
 }

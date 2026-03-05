@@ -661,3 +661,135 @@
     font-size: 0.75rem;
   }
 }
+
+/* Landscape mobile / Nest Hub: card layout for exam table */
+@media (max-height: 600px) and (orientation: landscape) {
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-header {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .degree-header {
+    margin-bottom: 1rem;
+  }
+
+  .degree-info h4 {
+    font-size: 1.1rem;
+  }
+
+  .degree-info p {
+    font-size: 0.85rem;
+  }
+
+  .exam-table-container {
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .exam-table thead {
+    display: none;
+  }
+
+  .exam-table,
+  .exam-table tbody,
+  .exam-table tr {
+    display: block;
+  }
+
+  .exam-row {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+  }
+
+  .exam-row:hover {
+    transform: none;
+    background: white;
+  }
+
+  .exam-row td {
+    display: block;
+    border: none;
+    padding: 0.3rem 0;
+    text-align: left !important;
+  }
+
+  .exam-row td:first-child {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+  }
+
+  .exam-name {
+    font-size: 1rem;
+  }
+
+  .exam-row td:nth-child(2),
+  .exam-row td:nth-child(3) {
+    display: inline-block;
+    width: 48%;
+    margin-right: 2%;
+  }
+
+  .exam-row td:nth-child(3) {
+    margin-right: 0;
+  }
+
+  .exam-row td:nth-child(2)::before,
+  .exam-row td:nth-child(3)::before,
+  .exam-row td:nth-child(4)::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #08415c;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .exam-badge {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .exam-row td:nth-child(5) {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e9ecef;
+  }
+
+  .exam-link {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .modal-footer {
+    padding: 0.5rem 1rem;
+  }
+
+  .modal-footer .d-flex {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modal-note {
+    font-size: 0.75rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .modal-close-btn {
+    width: 100%;
+  }
+}

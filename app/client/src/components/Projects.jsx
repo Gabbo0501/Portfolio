@@ -15,8 +15,9 @@ function Projects() {
   const { language } = useLanguage();
   const sectionRef = useScrollReveal([loading]);
 
-  // API base URL for images
-  const API_BASE = import.meta?.env?.VITE_API_BASE || 'http://localhost:3001';
+  // API base URL for images – empty in production so paths are relative
+  // (Caddy / Vite proxy will forward /images/* to the server)
+  const API_BASE = import.meta?.env?.VITE_API_BASE || '';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +50,7 @@ function Projects() {
   const closeLightbox = () => {
     setLightboxProject(null);
     setLightboxImageIndex(0);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
     // restore focus to previous element
     if (prevActiveElementRef.current && typeof prevActiveElementRef.current.focus === 'function') {
       prevActiveElementRef.current.focus();

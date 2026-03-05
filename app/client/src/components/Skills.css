@@ -231,6 +231,14 @@
 }
 
 /* Responsive Design */
+/* Tablet: 2 cards per row */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .skills-title {
     font-size: 2.5rem;
@@ -275,8 +283,17 @@
     font-size: 2rem;
   }
   
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
   .skill-category-card {
     padding: 1.5rem;
+    width: 100%;
   }
   
   .skill-technologies {
@@ -286,5 +303,38 @@
   .skill-tech-badge {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
+  }
+}
+
+/* Landscape mobile / Nest Hub: 2 cards per row */
+@media (max-height: 600px) and (orientation: landscape) {
+  .skills-section {
+    padding: 3rem 0;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 900px;
+  }
+
+  .skill-category-card {
+    padding: 1.5rem;
+  }
+
+  .skill-category-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-category-title {
+    font-size: 1.2rem;
+  }
+
+  .skill-tech-badge {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
   }
 }
