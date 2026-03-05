@@ -531,12 +531,44 @@
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .static-nav {
+    position: absolute;
     top: 1rem;
     left: 1rem;
     right: 1rem;
     transform: none;
   }
-  
+
+  /* Disable collapse behavior on mobile */
+  .static-nav.nav-scrolled .nav-container {
+    padding: 0.4rem 0.8rem;
+    height: auto;
+    overflow: visible;
+    gap: 0.4rem;
+    cursor: default;
+    border-color: rgba(214, 158, 46, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .static-nav.nav-scrolled .nav-container .nav-item,
+  .static-nav.nav-scrolled .nav-container .language-toggle {
+    pointer-events: auto;
+  }
+
+  .static-nav.nav-scrolled .nav-container .nav-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    background: transparent;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    overflow: visible;
+  }
+
+  .static-nav.nav-scrolled .nav-container .nav-btn .flag-icon {
+    font-size: 0.9rem;
+  }
+
   .nav-container {
     padding: 0.4rem 0.8rem;
     gap: 0.4rem;
