@@ -159,6 +159,7 @@ export function getProjects(language = 'it') {
       if (projects.length === 0) return resolve([]);
       
       projects.forEach((project, index) => {
+        // Get technologies
         db.all(`
           SELECT technology 
           FROM project_technologies 
@@ -166,20 +167,35 @@ export function getProjects(language = 'it') {
         `, [project.project_id], (err, technologies) => {
           if (err) return reject(err);
           
-          projectsWithTech[index] = {
-            id: index + 1,
-            name: project.name,
-            description: project.description,
-            status: project.status,
-            github: project.github_url,
-            demo: project.demo_url,
-            technologies: technologies.map(t => t.technology)
-          };
-          
-          completed++;
-          if (completed === projects.length) {
-            resolve(projectsWithTech);
-          }
+          // Get images
+          db.all(`
+            SELECT image_path, alt_text, display_order, is_primary
+            FROM project_images
+            WHERE project_id = ?
+            ORDER BY display_order ASC, id ASC
+          `, [project.project_id], (err, images) => {
+            if (err) return reject(err);
+            
+            projectsWithTech[index] = {
+              id: index + 1,
+              name: project.name,
+              description: project.description,
+              status: project.status,
+              github: project.github_url,
+              demo: project.demo_url,
+              technologies: technologies.map(t => t.technology),
+              images: images.map(img => ({
+                path: img.image_path,
+                alt: img.alt_text || project.name,
+                isPrimary: img.is_primary === 1
+              }))
+            };
+            
+            completed++;
+            if (completed === projects.length) {
+              resolve(projectsWithTech);
+            }
+          });
         });
       });
     });

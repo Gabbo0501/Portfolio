@@ -16,7 +16,8 @@ export const translations = {
       role: 'Studente di Informatica',
       description: 'Studente all\'ultimo anno di magistrale in Ingegneria del Software presso il Politecnico di Torino.',
       viewWork: 'I Miei Progetti',
-      getInTouch: 'Contattami'
+      getInTouch: 'Contattami',
+      downloadCV: 'Scarica CV'
     },
 
     // About Section
@@ -29,7 +30,7 @@ export const translations = {
       grade: 'Voto',
       webDev: {
         title: 'Sviluppo Web',
-        description: 'Frontend e Backend development. Interesse per applicazioni web scalabili e performanti.'
+        description: 'Frontend e Backend development. Interesse per applicazioni web scalabili, performanti e architetture distribuite con microservizi.'
       },
       mobileDev: {
         title: 'Mobile Development',
@@ -116,7 +117,8 @@ export const translations = {
       role: 'Computer Science Student',
       description: 'Final year Master\'s student in Software Engineering at Politecnico di Torino.',
       viewWork: 'View My Work',
-      getInTouch: 'Get In Touch'
+      getInTouch: 'Get In Touch',
+      downloadCV: 'Download CV'
     },
 
     // About Section
@@ -129,7 +131,7 @@ export const translations = {
       grade: 'Grade',
       webDev: {
         title: 'Web Development',
-        description: 'Frontend and Backend development. Interest in scalable and performant web applications.'
+        description: 'Frontend and Backend development. Interest in scalable, performant web applications and distributed microservices architectures.'
       },
       mobileDev: {
         title: 'Mobile Development',

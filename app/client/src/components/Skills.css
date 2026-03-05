@@ -80,11 +80,11 @@
 /* Skills Grid */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 4rem;
   justify-items: center;
-  max-width: 800px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -184,6 +184,14 @@
   background: #f29111;
 }
 
+.skill-category-card[data-category="databases"] .skill-category-icon {
+  background: #f29111;
+}
+
+.skill-category-card[data-category="persistency"] .skill-category-icon {
+  background: #f29111;
+}
+
 .skill-category-card[data-category="strumentietecnologie"] .skill-category-icon {
   background: #ff6b35;
 }
@@ -237,8 +245,9 @@
   }
   
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
+    max-width: 900px;
   }
   
   .skill-category-card {

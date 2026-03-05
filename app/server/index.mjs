@@ -1,7 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { getPortfolioData } from './dao.mjs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,6 +14,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+
+// Serve static images
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.get('/api/portfolio/:lang', async (req, res) => {
   try {

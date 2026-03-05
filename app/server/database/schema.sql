@@ -85,6 +85,17 @@ CREATE TABLE IF NOT EXISTS project_technologies (
     FOREIGN KEY (project_id) REFERENCES projects(project_id)
 );
 
+-- Create project_images table
+CREATE TABLE IF NOT EXISTS project_images (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    project_id TEXT NOT NULL,
+    image_path TEXT NOT NULL,
+    alt_text TEXT,
+    display_order INTEGER DEFAULT 0,
+    is_primary BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (project_id) REFERENCES projects(project_id)
+);
+
 -- Create skill_categories table
 CREATE TABLE IF NOT EXISTS skill_categories (
     category_id TEXT PRIMARY KEY,
@@ -198,44 +209,50 @@ INSERT OR IGNORE INTO education (language, degree, institution, description, sta
 INSERT OR IGNORE INTO skill_categories (category_id, name_it, name_en) VALUES 
 ('frontend', 'Frontend', 'Frontend'),
 ('backend', 'Backend', 'Backend'),
-('tools', 'Strumenti e Tecnologie', 'Tools & Technologies'),
+('persistency', 'Persistency', 'Persistency'),
+('tools', 'Strumenti e Infrastruttura', 'Tools & Infrastructure'),
+('design', 'Design e UX Research', 'Design & UX Research'),
 ('languages', 'Lingue', 'Languages');
 
 -- Insert sample skills
 INSERT OR IGNORE INTO skills (category_id, technology) VALUES 
 ('frontend', 'React'),
-('frontend', 'JavaScript'),
 ('frontend', 'HTML5'),
 ('frontend', 'CSS3'),
 ('frontend', 'Bootstrap'),
-('backend', 'C++'),
-('backend', 'Node.js'),
+('backend', 'JavaScript'),
+('backend', 'TypeScript'),
 ('backend', 'Express'),
 ('backend', 'Python'),
-('backend', 'Java'),
-('backend', 'Rust'),
 ('backend', 'Flask'),
-('tools', 'SQLite'),
-('tools', 'MySQL'),
-('tools', 'MongoDB'),
+('backend', 'Rust'),
+('backend', 'Kotlin'),
+('backend', 'Spring Boot'),
+('persistency', 'SQLite'),
+('persistency', 'MySQL'),
+('persistency', 'MongoDB'),
+('persistency', 'PostgreSQL'),
+('persistency', 'TypeORM'),
+('persistency', 'Prisma'),
+('persistency', 'MinIO'),
 ('tools', 'Git'),
 ('tools', 'Docker'),
+('tools', 'Gradle'),
+('tools', 'Telegram Bot API'),
+('tools', 'TUS Protocol'),
+('tools', 'Kafka'),
+('tools', 'OAuth2/OIDC'),
+('tools', 'Keycloak'),
+('design', 'Figma'),
+('design', 'User Research'),
+('design', 'Usability Testing'),
+('design', 'UX Design'),
+('design', 'Prototyping'),
+('design', 'HCI Methodology'),
 ('languages', 'Italiano (Madrelingua)'),
 ('languages', 'Inglese (C1 - IELTS)');
 
 -- Insert sample projects
-INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('portfolio', 'it', 'Portfolio Personale Multilingua', 'Sito web portfolio sviluppato con React e Node.js, featuring sistema multilingua completo e database SQLite per gestione dinamica dei contenuti.', 'Completato', 'https://github.com/Gabbo0501/Portfolio', NULL);
-
-INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('portfolio', 'en', 'Multilingual Personal Portfolio', 'Portfolio website built with React and Node.js, featuring complete multilingual system and SQLite database for dynamic content management.', 'Completed', 'https://github.com/Gabbo0501/Portfolio', NULL);
-
-INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('indovina-frase', 'it', 'Indovina la Frase', 'Applicazione web full-stack sviluppata come progetto d''esame per il corso di Applicazioni Web I. Gioco interattivo dove l''utente deve indovinare frasi selezionando le lettere corrette. Include sistema di autenticazione, gestione utenti, database SQLite e interfaccia React.', 'Completato', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
-
-INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
-('indovina-frase', 'en', 'Guess the Phrase', 'Full-stack web application developed as exam project for Web Applications I course. Interactive game where users must guess phrases by selecting correct letters. Features authentication system, user management, SQLite database and React interface.', 'Completed', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
-
 INSERT OR IGNORE INTO projects 
 (project_id, language, name, description, status, github_url, demo_url) 
 VALUES 
@@ -268,7 +285,7 @@ VALUES
 (
 'document-portal-ms',
 'it',
-'Company Document Portal - Architettura a Microservizi',
+'Company Document Portal',
 'Sistema distribuito per la gestione documentale aziendale basato su microservizi. Permette upload resumable (TUS), versioning immutabile, gestione metadata, ricerca avanzata, condivisione con controllo accessi basato su ruoli (OAuth2/OIDC), processing asincrono tramite Kafka e pipeline AI monitorabili con osservabilità e tracing distribuito.',
 'In corso',
 NULL,
@@ -281,15 +298,40 @@ VALUES
 (
 'document-portal-ms',
 'en',
-'Company Document Portal - Microservices Architecture',
+'Company Document Portal',
 'Distributed microservices-based document management system for secure corporate collaboration. Supports resumable uploads (TUS), immutable versioning, metadata management, role-based access control (OAuth2/OIDC), asynchronous processing via Kafka, AI-powered document analysis, and full observability with monitoring and distributed tracing.',
 'In progress',
 NULL,
 NULL
 );
 
+INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
+('so-menga', 'it', 'So Menga', 'Progetto di Human-Computer Interaction focalizzato su preservazione e valorizzazione dei dialetti italiani attraverso esperienze di storytelling immersivo. Sviluppo completo del processo HCI: user research (5 interviste semi-strutturate), needfinding, sintesi di user needs, ideazione di soluzioni, creazione di prototipi cartacei e digitali (Figma), heuristic evaluation e redesign a media-alta fedeltà. Approccio user-centered orientato a bridging generazionale e reconnessione culturale.', 'Completato', NULL, NULL);
+
+INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
+('so-menga', 'en', 'So Menga', 'Human-Computer Interaction project focused on preserving and valorizing Italian dialects through immersive storytelling experiences. Complete HCI process: user research (5 semi-structured interviews), needfinding, user needs synthesis, solution ideation, paper and digital prototypes (Figma design), heuristic evaluation (53 violations identified), and medium-to-high fidelity redesign. User-centered approach addressing intergenerational bridge and cultural reconnection through authentic, contextualized learning.', 'Completed', NULL, NULL);
+
+INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
+('portfolio', 'it', 'Portfolio Personale Multilingua', 'Sito web portfolio sviluppato con React ed Express, featuring sistema multilingua completo e database SQLite per gestione dinamica dei contenuti.', 'Completato', 'https://github.com/Gabbo0501/Portfolio', NULL);
+
+INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
+('portfolio', 'en', 'Multilingual Personal Portfolio', 'Portfolio website built with React and Express, featuring complete multilingual system and SQLite database for dynamic content management.', 'Completed', 'https://github.com/Gabbo0501/Portfolio', NULL);
+
+INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
+('indovina-frase', 'it', 'Indovina la Frase', 'Applicazione web full-stack sviluppata come progetto d''esame per il corso di Applicazioni Web I. Gioco interattivo dove l''utente deve indovinare frasi selezionando le lettere corrette. Include sistema di autenticazione, gestione utenti, database SQLite e interfaccia React.', 'Completato', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
+
+INSERT OR IGNORE INTO projects (project_id, language, name, description, status, github_url, demo_url) VALUES 
+('indovina-frase', 'en', 'Guess the Phrase', 'Full-stack web application developed as exam project for Web Applications I course. Interactive game where users must guess phrases by selecting correct letters. Features authentication system, user management, SQLite database and React interface.', 'Completed', 'https://github.com/Gabbo0501/Guess-the-Phrase', NULL);
+
+
 -- Insert sample project technologies
 INSERT OR IGNORE INTO project_technologies (project_id, technology) VALUES 
+('so-menga', 'User Research'),
+('so-menga', 'Figma'),
+('so-menga', 'Usability Testing'),
+('so-menga', 'Prototyping'),
+('so-menga', 'UX Design'),
+('so-menga', 'HCI Methodology'),
 ('portfolio', 'JavaScript'),
 ('portfolio', 'React'),
 ('portfolio', 'Express'),
@@ -366,6 +408,7 @@ INSERT OR IGNORE INTO course_topics (course_code, language, topic) VALUES
 -- Insert sample exams  
 -- MAGISTRALE
 INSERT OR IGNORE INTO exams (exam_code, language, name, degree_type, credits, grade, exam_date, url) VALUES 
+('02JSKOV', 'it', 'Human Computer Interaction', 'magistrale', 6, '29', '2026-02-02', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=02JSKOV&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
 ('02GOLYG', 'it', 'Architetture dei sistemi di elaborazione', 'magistrale', 10, '29', '2025-02-13', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=02GOLYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
 ('01PDWYG', 'it', 'Information systems', 'magistrale', 6, '25', '2025-02-20', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01PDWYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
 ('01VRYYG', 'it', 'Software engineering', 'magistrale', 8, '27', '2025-06-23', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01VRYYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
@@ -374,6 +417,7 @@ INSERT OR IGNORE INTO exams (exam_code, language, name, degree_type, credits, gr
 ('01UDFYG', 'it', 'Applicazioni Web I', 'magistrale', 6, '30', '2025-09-17', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01UDFYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N");
 
 INSERT OR IGNORE INTO exams (exam_code, language, name, degree_type, credits, grade, exam_date, url) VALUES 
+('02JSKOV', 'en', 'Human Computer Interaction', 'magistrale', 6, '29', '2026-02-02', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=02JSKOV&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
 ('02GOLYG', 'en', 'Computer System Architectures', 'magistrale', 10, '29', '2025-02-13', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=02LSEYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
 ('01PDWYG', 'en', 'Information Systems', 'magistrale', 6, '25', '2025-02-20', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01PDWYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
 ('01VRYYG', 'en', 'Software Engineering', 'magistrale', 8, '27', '2025-06-23', "https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01VRYYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N"),
@@ -432,3 +476,45 @@ INSERT OR IGNORE INTO exams (exam_code, language, name, degree_type, credits, gr
 INSERT INTO certifications (certification_id, language, name, organization, description, level, date_obtained, is_featured) VALUES 
 ('ielts-c1', 'it', 'IELTS Academic', 'British Council', 'Certificazione internazionale che attesta un livello avanzato di competenza nella lingua inglese (Common European Framework C1).', 'C1', '2024-05-15', TRUE),
 ('ielts-c1', 'en', 'IELTS Academic', 'British Council', 'International certification that attests an advanced level of English language proficiency (Common European Framework C1)', 'C1', '2024-05-15', TRUE);
+
+-- ================================
+-- PROJECT IMAGES
+-- ================================
+-- To add images to your projects:
+-- 1. Place image files in: app/server/public/images/projects/
+-- 2. Insert records using the project_id from the projects table
+-- 3. Set display_order to control the sequence (lower numbers appear first)
+-- 4. Mark one image as is_primary = TRUE (this will be shown first)
+--
+-- Example: Adding images to the 'portfolio' project
+-- INSERT INTO project_images (project_id, image_path, alt_text, display_order, is_primary) VALUES 
+-- ('portfolio', 'portfolio-home.jpg', 'Portfolio homepage', 0, TRUE),
+-- ('portfolio', 'portfolio-projects.jpg', 'Projects section', 1, FALSE),
+-- ('portfolio', 'portfolio-skills.jpg', 'Skills section', 2, FALSE);
+--
+-- Example: Adding a single image to 'participium' project
+-- INSERT INTO project_images (project_id, image_path, alt_text, display_order, is_primary) VALUES 
+-- ('participium', 'participium-dashboard.png', 'Participium dashboard', 0, TRUE);
+--
+-- Example: Adding multiple images to 'document-portal-ms' project
+-- INSERT INTO project_images (project_id, image_path, alt_text, display_order, is_primary) VALUES 
+-- ('document-portal-ms', 'docportal-main.jpg', 'Document portal main interface', 0, TRUE),
+-- ('document-portal-ms', 'docportal-upload.jpg', 'File upload interface', 1, FALSE),
+-- ('document-portal-ms', 'docportal-search.jpg', 'Search functionality', 2, FALSE),
+-- ('document-portal-ms', 'docportal-admin.jpg', 'Admin dashboard', 3, FALSE);
+
+-- Images for "Indovina la Frase" / "Guess the Phrase" project
+INSERT INTO project_images (project_id, image_path, alt_text, display_order, is_primary) VALUES 
+('indovina-frase', 'guess-phrase-1.png', 'Guess the Phrase - Game interface', 0, TRUE),
+('indovina-frase', 'guess-phrase-2.png', 'Guess the Phrase - Gameplay', 1, FALSE);
+
+-- Images for "So Menga" project (HCI project on Italian dialects)
+INSERT INTO project_images (project_id, image_path, alt_text, display_order, is_primary) VALUES 
+('so-menga', 'so-menga-1.png', 'So Menga - Main interface', 0, TRUE),
+('so-menga', 'so-menga-2.png', 'So Menga - Feature showcase', 1, FALSE);
+
+-- Images for "Participium" project (Citizen Reporting Platform)
+INSERT INTO project_images (project_id, image_path, alt_text, display_order, is_primary) VALUES 
+('participium', 'participium-1.png', 'Participium - Interactive map with citizen reports', 0, TRUE),
+('participium', 'participium-2.png', 'Participium - Report detail with chat system', 1, FALSE),
+('participium', 'participium-3.png', 'Participium - Reports management dashboard', 2, FALSE);

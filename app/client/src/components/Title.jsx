@@ -168,6 +168,14 @@ function Title() {
                   <span className="btn-text">{t('title.getInTouch')}</span>
                   <i className="bi bi-chat-dots"></i>
                 </button>
+                <a 
+                  href="/cv.pdf"
+                  download="GabrieleMondino_CV.pdf"
+                  className="cta-btn secondary"
+                >
+                  <span className="btn-text">{t('title.downloadCV')}</span>
+                  <i className="bi bi-download"></i>
+                </a>
               </div>
               
             </Col>

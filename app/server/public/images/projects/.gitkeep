@@ -1,0 +1,13 @@
+# Project Images Directory
+
+Place project images here. Images will be served at:
+http://localhost:3001/images/projects/[filename]
+
+Image naming convention:
+- project-id_1.jpg (primary image)
+- project-id_2.jpg
+- project-id_3.jpg
+etc.
+
+Supported formats: .jpg, .jpeg, .png, .gif, .webp
+Recommended size: Max 1920x1080, optimized for web

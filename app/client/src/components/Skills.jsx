@@ -29,13 +29,13 @@ function Skills() {
   // Category icon mapping
   const getCategoryIcon = (category) => {
     const iconMap = {
-      'frontend': 'bi-palette',
-      'backend': 'bi-server',
-      'database': 'bi-database',
-      'tools': 'bi-gear-wide-connected',
-      'strumentietecnologie': 'bi-gear-wide-connected',
-      'mobile': 'bi-phone',
-      'cloud': 'bi-cloud',
+      'frontend': 'bi-display',
+      'backend': 'bi-pc',
+      'persistency': 'bi-database',
+      'strumenti,devopseinifrastruttura': 'bi-gear-wide-connected',  // IT: Strumenti e Infrastruttura
+      'tools,devops&infrastructure': 'bi-gear-wide-connected',       // EN: Tools & Infrastructure
+      'designeuxresearch': 'bi-brush',                 // IT: Design e UX Research
+      'design&uxresearch': 'bi-brush',                 // EN: Design & UX Research
       'languages': 'bi-globe',
       'lingue': 'bi-globe',
       'default': 'bi-code-square'
