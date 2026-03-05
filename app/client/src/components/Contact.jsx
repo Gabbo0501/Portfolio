@@ -1,12 +1,14 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import { portfolioAPI } from '../services/api';
 import './Contact.css';
 
 function Contact() {
   const { t, language } = useTranslation();
   const [personal, setPersonal] = useState(null);
+  const sectionRef = useScrollReveal([personal]);
 
   useEffect(() => {
     let mounted = true;
@@ -35,11 +37,11 @@ function Contact() {
   const githubHandle = githubUrl.replace(/^https?:\/\/(www\.)?github\.com\//i, '');
 
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="contact-section" ref={sectionRef}>
       <Container>
         <Row className="mb-5">
           <Col>
-            <h2 className="contact-title text-center">{t('contact.title')}</h2>
+            <h2 className="contact-title text-center reveal">{t('contact.title')}</h2>
           </Col>
         </Row>
         
@@ -47,7 +49,7 @@ function Contact() {
           <Col lg={10} xl={8}>
             <Row className="g-4">
               <Col md={6}>
-                <div className="contact-item" style={{ '--index': 0 }}>
+                <div className="contact-item reveal" style={{ '--index': 0 }}>
                   <a className="contact-icon" href={emailUrl}>
                     <i className="bi bi-envelope"></i>
                   </a>
@@ -59,7 +61,7 @@ function Contact() {
               </Col>
               
               <Col md={6}>
-                <div className="contact-item" style={{ '--index': 1 }}>
+                <div className="contact-item reveal" style={{ '--index': 1 }}>
                   <a className="contact-icon" href={linkedinUrl} target="_blank" rel="noopener noreferrer">
                     <i className="bi bi-linkedin"></i>
                   </a>
@@ -73,7 +75,7 @@ function Contact() {
               </Col>
               
               <Col md={6}>
-                <div className="contact-item" style={{ '--index': 2 }}>
+                <div className="contact-item reveal" style={{ '--index': 2 }}>
                   <div className="contact-icon">
                     <i className="bi bi-geo-alt"></i>
                   </div>
@@ -85,7 +87,7 @@ function Contact() {
               </Col>
               
               <Col md={6}>
-                <div className="contact-item" style={{ '--index': 3 }}>
+                <div className="contact-item reveal" style={{ '--index': 3 }}>
                   <a className="contact-icon" href={githubUrl} target="_blank" rel="noopener noreferrer">
                     <i className="bi bi-github"></i>
                   </a>

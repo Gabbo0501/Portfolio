@@ -8,8 +8,15 @@ import './Title.css';
 function Title() {
   const [portfolioData, setPortfolioData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
   const { language, toggleLanguage } = useLanguage();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 100);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,13 +75,12 @@ function Title() {
 
   return (
     <section id="home" className="title-section">
-      {/* Animated Background */}
       <div className="animated-background">
         <div className="grid-pattern"></div>
       </div>
 
       {/* Static Navigation */}
-      <nav className="static-nav">
+      <nav className={`static-nav ${scrolled ? 'nav-scrolled' : ''}`}>
         <div className="nav-container">
           {[
             { id: 'home', icon: 'house', label: t('nav.home') },
@@ -181,6 +187,14 @@ function Title() {
             </Col>
           </Row>
         </Container>
+      </div>
+
+      {/* Curve into About */}
+      <div className="title-curve">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          {/* lowered control points so center peak is lower (less tall curve) */}
+          <path d="M0,80 C480,40 960,40 1440,80 Z" fill="#FAFAFA"/>
+        </svg>
       </div>
     </section>
   );

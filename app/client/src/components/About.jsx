@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Badge } from 'react-bootstrap';
 import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import './About.css';
 
 function About() {
@@ -10,6 +11,7 @@ function About() {
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const sectionRef = useScrollReveal([loading]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,31 +51,31 @@ function About() {
   const { personalInfo, education, certifications } = portfolioData;
 
   return (
-    <section id="about" className="py-5">
+    <section id="about" className="about-section" ref={sectionRef}>
       <Container>
-        <Row className="mb-4 mt-4">
+        <Row className="mb-4">
           <Col>
-            <h2 className="about-title text-center">{t('about.title')}</h2>
+            <h2 className="about-title text-center reveal">{t('about.title')}</h2>
           </Col>
         </Row>
         
         <Row className="g-4 mb-5">
           <Col>
-            <p className="about-bio">
+            <p className="about-bio reveal" style={{ '--index': 1 }}>
               {personalInfo?.bio || t('about.defaultBio')}
             </p>
           </Col>
         </Row>
         <Row className="mb-5">
           <Col>
-            <h3 className="section-header">
+            <h3 className="section-header reveal">
               <i className="bi bi-mortarboard"></i>
               {t('about.educationTitle')}
             </h3>
             <Row className="justify-content-center">
               <Col lg={8}>
                 {education && education.map((edu, index) => (
-                  <Card key={index} className="education-card" style={{ '--index': index }}>
+                  <Card key={index} className="education-card reveal" style={{ '--index': index }}>
                     <Card.Body className="d-flex align-items-start p-0">
                       <div className="education-icon me-3">
                         {index + 1}
@@ -99,14 +101,14 @@ function About() {
 
         <Row className="mb-5">
           <Col>
-            <h3 className="section-header">
+            <h3 className="section-header reveal">
               <i className="bi bi-award"></i>
               {t('about.certificationsTitle')}
             </h3>
             <Row className="justify-content-center">
               <Col lg={8}>
                 {certifications && certifications.map((cert, index) => (
-                  <Card key={index} className="education-card" style={{ '--index': index }}>
+                  <Card key={index} className="education-card reveal" style={{ '--index': index }}>
                     <Card.Body className="d-flex align-items-start p-0">
                       <div className="education-icon me-3">
                         <i className="bi bi-award"></i>
@@ -133,7 +135,7 @@ function About() {
                   </Card>
                 ))}
                 {(!certifications || certifications.length === 0) && (
-                  <Card className="education-card" style={{ '--index': 0 }}>
+                  <Card className="education-card reveal" style={{ '--index': 0 }}>
                     <Card.Body className="d-flex align-items-start p-0">
                       <div className="education-icon me-3">
                         <i className="bi bi-translate"></i>
@@ -158,13 +160,13 @@ function About() {
 
         <Row>
           <Col>
-            <h3 className="section-header">
+            <h3 className="section-header reveal">
               <i className="bi bi-lightbulb"></i>
               {t('about.interestsTitle')}
             </h3>
             <Row className="g-4">
               <Col md={6} lg={4}>
-                <Card className="interest-card text-center" style={{ '--index': 0 }}>
+                <Card className="interest-card text-center reveal" style={{ '--index': 0 }}>
                   <Card.Body>
                     <div className="interest-icon">
                       <i className="bi bi-laptop"></i>
@@ -177,7 +179,7 @@ function About() {
                 </Card>
               </Col>
               <Col md={6} lg={4}>
-                <Card className="interest-card text-center" style={{ '--index': 1 }}>
+                <Card className="interest-card text-center reveal" style={{ '--index': 1 }}>
                   <Card.Body>
                     <div className="interest-icon">
                       <i className="bi bi-phone"></i>
@@ -190,7 +192,7 @@ function About() {
                 </Card>
               </Col>
               <Col md={6} lg={4}>
-                <Card className="interest-card text-center" style={{ '--index': 2 }}>
+                <Card className="interest-card text-center reveal" style={{ '--index': 2 }}>
                   <Card.Body>
                     <div className="interest-icon">
                       <i className="bi bi-gear-wide-connected"></i>

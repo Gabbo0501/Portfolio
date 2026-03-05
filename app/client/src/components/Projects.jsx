@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Projects.css';
 
 function Projects() {
@@ -12,6 +13,7 @@ function Projects() {
   const [lightboxImageIndex, setLightboxImageIndex] = useState(0); // Track active image in lightbox
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const sectionRef = useScrollReveal([loading]);
 
   // API base URL for images
   const API_BASE = import.meta?.env?.VITE_API_BASE || 'http://localhost:3001';
@@ -142,12 +144,12 @@ function Projects() {
   }
 
   return (
-    <section id="projects" className="projects-section">
+    <section id="projects" className="projects-section" ref={sectionRef}>
       <Container>
-        <Row className="mb-5 mt-4">
+        <Row className="mb-5">
           <Col>
-            <h2 className="projects-title">{t('projects.title')}</h2>
-            <p className="projects-intro">
+            <h2 className="projects-title reveal">{t('projects.title')}</h2>
+            <p className="projects-intro reveal" style={{ '--index': 1 }}>
               {t('projects.description')}
             </p>
           </Col>
@@ -161,7 +163,7 @@ function Projects() {
               : null;
             
             return (
-            <div key={project.id} className="project-card" style={{ '--index': index }}>
+            <div key={project.id} className="project-card reveal" style={{ '--index': index }}>
               <div 
                 className="project-image" 
                 onClick={() => hasImages && openLightbox(project)}
@@ -293,7 +295,8 @@ function Projects() {
             </div>
           </div>
         </div>
-      )}    </section>
+      )}      
+    </section>
   );
 }
 

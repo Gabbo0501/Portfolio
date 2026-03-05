@@ -3,6 +3,7 @@ import { Container, Row, Col, Modal, Table } from 'react-bootstrap';
 import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Courses.css';
 
 function Courses() {
@@ -11,6 +12,7 @@ function Courses() {
   const [showAllExams, setShowAllExams] = useState(false);
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const sectionRef = useScrollReveal([loading]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,14 +54,14 @@ function Courses() {
   }
 
   return (
-    <section id="courses" className="courses-section">
+    <section id="courses" className="courses-section" ref={sectionRef}>
       <Container>
         <Row className="mb-5">
           <Col>
-            <h2 className="courses-title">
+            <h2 className="courses-title reveal">
               {t('courses.title')}
             </h2>
-            <p className="courses-intro">
+            <p className="courses-intro reveal" style={{ '--index': 1 }}>
               {t('courses.description')}
             </p>
           </Col>
@@ -68,7 +70,7 @@ function Courses() {
         {/* Featured Courses */}
         <div className="featured-courses">
           {portfolioData.featuredCourses?.map((course, index) => (
-            <div key={index} className="course-card" style={{ '--index': index }}>
+            <div key={index} className="course-card reveal" style={{ '--index': index }}>
               <div className="course-header">
                 <h3 className="course-title">{course.name}</h3>
               </div>

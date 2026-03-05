@@ -1,7 +1,6 @@
 /* Skills Section Modern Design */
 .skills-section {
   background: linear-gradient(135deg, #08415c 0%, #0f4c75 50%, #041e2a 100%);
-  min-height: 100vh;
   position: relative;
   overflow: hidden;
   padding: 6rem 0;
@@ -82,7 +81,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  margin-bottom: 4rem;
   justify-items: center;
   max-width: 1200px;
   margin-left: auto;
@@ -99,9 +97,6 @@
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
-  animation: fadeInUp 0.8s ease-out;
-  animation-delay: calc(var(--index) * 0.1s);
-  animation-fill-mode: both;
 }
 
 .skill-category-card::before {
@@ -116,7 +111,8 @@
 
 .skill-category-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 30px 60px rgba(8, 65, 92, 0.15);
+  box-shadow: 0 30px 60px rgba(8, 65, 92, 0.15), 0 0 0 1px rgba(214, 158, 46, 0.3);
+  border-color: rgba(214, 158, 46, 0.2);
 }
 
 .skill-category-header {

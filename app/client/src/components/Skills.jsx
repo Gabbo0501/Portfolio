@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Skills.css';
 
 function Skills() {
@@ -10,6 +11,7 @@ function Skills() {
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const sectionRef = useScrollReveal([loading]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,12 +59,12 @@ function Skills() {
   }
 
   return (
-    <section id="skills" className="skills-section">
+    <section id="skills" className="skills-section" ref={sectionRef}>
       <Container>
         <Row className="mb-5">
           <Col>
-            <h2 className="skills-title">{t('skills.title')}</h2>
-            <p className="skills-intro">
+            <h2 className="skills-title reveal">{t('skills.title')}</h2>
+            <p className="skills-intro reveal" style={{ '--index': 1 }}>
               {t('skills.description')}
             </p>
           </Col>
@@ -72,7 +74,7 @@ function Skills() {
           {skills.map((skillCategory, index) => (
             <div 
               key={index} 
-              className="skill-category-card" 
+              className="skill-category-card reveal" 
               style={{ '--index': index }}
               data-category={skillCategory.category.toLowerCase().replace(/\s+/g, '')}
             >

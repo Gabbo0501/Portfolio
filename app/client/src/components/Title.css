@@ -2,11 +2,28 @@
 .title-section {
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: linear-gradient(135deg, #041e2a 0%, #08415C 25%, #102A43 50%, #041e2a 100%);
+}
+
+/* ===== TITLE BOTTOM CURVE ===== */
+.title-curve {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.title-curve svg {
+  width: 100%;
+  height: 80px;
+  display: block;
 }
 
 /* ===== ANIMATED BACKGROUND ===== */
@@ -39,15 +56,82 @@
 
 /* ===== STATIC NAVIGATION ===== */
 .static-nav {
-  position: absolute;
+  position: fixed;
   top: 2rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.static-nav.nav-scrolled {
+  top: 0.75rem;
+}
+
+/* Collapsed state: slim pill with hint icons */
+.static-nav.nav-scrolled .nav-container {
+  background: rgba(4, 30, 42, 0.92);
+  padding: 0.3rem 1.5rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  border-color: rgba(214, 158, 46, 0.25);
+  cursor: pointer;
+  gap: 0.5rem;
+}
+
+/* Shrink icons to tiny dots when collapsed */
+.static-nav.nav-scrolled .nav-container .nav-item,
+.static-nav.nav-scrolled .nav-container .language-toggle {
+  pointer-events: none;
+}
+
+.static-nav.nav-scrolled .nav-container .nav-btn {
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  min-height: 6px;
+  background: rgba(214, 158, 46, 0.5);
+  border-radius: 50%;
+  font-size: 0;
+  padding: 0;
+  overflow: hidden;
+  color: transparent;
+}
+
+.static-nav.nav-scrolled .nav-container .nav-btn .flag-icon {
+  font-size: 0;
+}
+
+/* Expanded on hover */
+.static-nav.nav-scrolled:hover .nav-container {
+  padding: 0.5rem 1.25rem;
+  gap: 1rem;
+  border-color: rgba(214, 158, 46, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.static-nav.nav-scrolled:hover .nav-container .nav-item,
+.static-nav.nav-scrolled:hover .nav-container .language-toggle {
+  pointer-events: auto;
+}
+
+.static-nav.nav-scrolled:hover .nav-container .nav-btn {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  background: transparent;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  overflow: visible;
+}
+
+.static-nav.nav-scrolled:hover .nav-container .nav-btn .flag-icon {
+  font-size: 1.1rem;
 }
 
 .nav-container {
   display: flex;
+  align-items: center;
   background: rgba(4, 30, 42, 0.8);
   border: 1px solid rgba(214, 158, 46, 0.2);
   border-radius: 50px;
@@ -55,7 +139,14 @@
   gap: 1rem;
   backdrop-filter: blur(20px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.nav-container .nav-btn {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
 
 .nav-item {
   position: relative;
@@ -171,14 +262,14 @@
 .name-underline {
   width: 0;
   height: 4px;
-  background: #D69E2E;
+  background: linear-gradient(90deg, transparent, #D69E2E, transparent);
   margin: 1rem auto 0;
   border-radius: 2px;
   animation: expandWidth 1.5s ease-out 2s both;
 }
 
 @keyframes expandWidth {
-  to { width: 200px; }
+  to { width: 250px; }
 }
 
 .hero-role {
@@ -260,7 +351,7 @@
 
 .cta-btn.primary {
   border-color: #D69E2E;
-  background: #D69E2E;
+  background: linear-gradient(135deg, #D69E2E, #B7791F);
 }
 
 .cta-btn.secondary {
@@ -456,6 +547,14 @@
   .nav-btn {
     width: 36px;
     height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .static-nav.nav-scrolled:hover .nav-container .nav-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
     font-size: 0.9rem;
   }
   

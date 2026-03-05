@@ -1,7 +1,6 @@
 /* Courses Section Modern Design */
 .courses-section {
   background: linear-gradient(135deg, #08415c 0%, #0f4c75 50%, #041e2a 100%);
-  min-height: 100vh;
   position: relative;
   overflow: hidden;
   padding: 6rem 0;
@@ -96,9 +95,6 @@
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
-  animation: fadeInUp 0.8s ease-out;
-  animation-delay: calc(var(--index) * 0.1s);
-  animation-fill-mode: both;
 }
 
 .course-card::before {
@@ -113,7 +109,8 @@
 
 .course-card:hover {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 30px 60px rgba(8, 65, 92, 0.2);
+  box-shadow: 0 30px 60px rgba(8, 65, 92, 0.2), 0 0 0 1px rgba(214, 158, 46, 0.3);
+  border-color: rgba(214, 158, 46, 0.3);
 }
 
 .course-header {
