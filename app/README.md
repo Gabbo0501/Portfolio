@@ -13,7 +13,7 @@ Single Page Application (SPA) portfolio built as a personal university project.
 - `server/`: Express API, SQLite access, static images
 - `server/database/schema.sql`: database schema
 - `server/database/seed.sql`: demo seed data
-- `.github/workflows/ci.yml`: GitHub Actions CI for format, lint and build
+- `../.github/workflows/ci.yml`: GitHub Actions CI for format, lint and build
 
 ## Features
 
@@ -49,13 +49,14 @@ Available variables:
 - `PORT`: server port. Default: `3001`.
 - `NODE_ENV`: use `production` to enable production CORS allowlist behavior.
 - `CORS_ORIGINS`: comma-separated list of allowed browser origins in production, for example `https://gabrielemondino.it,https://www.gabrielemondino.it`.
+- `DB_PATH`: optional SQLite database file path. Docker uses `/app/data/portfolio.db` so the runtime DB volume does not hide schema and seed files.
 - `DB_RESET`: set to `1` to delete and recreate the SQLite DB on startup.
 - `DB_RESET_ON_SCHEMA_CHANGE`: set to `1` to recreate the DB when schema/seed files are newer than the DB file.
 - `DB_RESET_ON_INCOMPATIBLE_SCHEMA`: defaults to enabled. Set to `0` to disable automatic reset for incompatible local schemas.
 
 ## Local Development
 
-Install dependencies from the repository root:
+Install dependencies from the `app/` directory:
 
 ```powershell
 npm install
@@ -169,6 +170,7 @@ This repo includes Dockerfiles for both client and server.
 Use `docker-compose.prod.yml`:
 
 ```powershell
+cd app
 docker compose -f docker-compose.prod.yml up -d --build
 ```
 
@@ -180,5 +182,5 @@ Configure your domain in `Caddyfile`. The default file is set up to:
 
 ### Notes
 
-- The server database folder is persisted via a Docker volume (`db_data`).
+- The server runtime database is persisted via a Docker volume (`db_data`) mounted at `/app/data`.
 - Health check uses `GET /api/portfolio/it` on port 3001.

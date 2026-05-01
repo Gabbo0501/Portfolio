@@ -6,7 +6,7 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const dbPath = join(__dirname, 'database/portfolio.db');
+const dbPath = process.env.DB_PATH || join(__dirname, 'database/portfolio.db');
 
 const dbDir = dirname(dbPath);
 if (!fs.existsSync(dbDir)) {

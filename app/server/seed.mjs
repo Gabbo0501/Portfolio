@@ -6,10 +6,15 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const dbPath = join(__dirname, 'database/portfolio.db');
+const dbPath = process.env.DB_PATH || join(__dirname, 'database/portfolio.db');
 const schemaPath = join(__dirname, 'database/schema.sql');
 const seedPath = join(__dirname, 'database/seed.sql');
 const localSeedPath = join(__dirname, 'database/seed.local.sql');
+
+const dbDir = dirname(dbPath);
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
 
 const reset = process.argv.includes('--reset');
 
