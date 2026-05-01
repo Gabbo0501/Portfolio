@@ -12,7 +12,7 @@ services:
     environment:
       - PORT=3001
       - NODE_ENV=production
-      - CORS_ORIGINS=https://your-domain.example
+      - CORS_ORIGINS=https://gabrielemondino.it,https://www.gabrielemondino.it
     volumes:
       - db_data:/app/database
     expose:

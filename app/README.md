@@ -48,7 +48,7 @@ Available variables:
 
 - `PORT`: server port. Default: `3001`.
 - `NODE_ENV`: use `production` to enable production CORS allowlist behavior.
-- `CORS_ORIGINS`: comma-separated list of allowed browser origins in production, for example `https://example.com,https://www.example.com`.
+- `CORS_ORIGINS`: comma-separated list of allowed browser origins in production, for example `https://gabrielemondino.it,https://www.gabrielemondino.it`.
 - `DB_RESET`: set to `1` to delete and recreate the SQLite DB on startup.
 - `DB_RESET_ON_SCHEMA_CHANGE`: set to `1` to recreate the DB when schema/seed files are newer than the DB file.
 - `DB_RESET_ON_INCOMPATIBLE_SCHEMA`: defaults to enabled. Set to `0` to disable automatic reset for incompatible local schemas.
@@ -127,8 +127,6 @@ The files live under `server/public/images`.
 - Optional private/local seed overrides: `server/database/seed.local.sql`
 - Runtime database file: `server/database/portfolio.db`
 
-The SQLite database is derived content. It is created locally from `schema.sql` and `seed.sql`, and should not be committed. The `.gitignore` excludes `server/database/portfolio.db` and other SQLite runtime files.
-
 The public seed is intentionally demo content. To initialize the DB with your real personal data without committing it:
 
 ```powershell
@@ -184,15 +182,3 @@ Configure your domain in `Caddyfile`. The default file is set up to:
 
 - The server database folder is persisted via a Docker volume (`db_data`).
 - Health check uses `GET /api/portfolio/it` on port 3001.
-
-## Contributing / Dev Notes
-
-- Prefer root scripts (`npm run dev`, `npm run lint`, `npm run build`) so local workflow matches CI.
-- Keep generated artifacts out of git: `node_modules`, `client/dist`, logs and SQLite DB files are ignored.
-- If API data looks stale after editing `seed.sql` or `seed.local.sql`, run `npm run seed:reset` or start the server with `DB_RESET=1`.
-- If production requests fail due to CORS, check that `NODE_ENV=production` and `CORS_ORIGINS` exactly match the deployed frontend origin.
-- Project content is normalized across schema tables; update both base records and translation rows when adding bilingual entries.
-
-## Contact
-
-- Author: replace the demo seed placeholders with your public contact details before deploying.
