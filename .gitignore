@@ -1,30 +1,50 @@
-# Repository-level .gitignore
+# Repository-level ignores
 
-# Sensitive keys and secrets
-ssh-key-*.key
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.local
 *.key
 *.pem
 *.p12
 *.crt
-.env
-.env.*
-
-# Public keys and scripts folder
 *.pub
-scripts/
 
-# Node / front-end
+# Local-only files
+/comandi.txt
+/scripts/
+
+# Dependencies and build output
 node_modules/
 dist/
+dist-ssr/
 build/
+coverage/
 
-# OS / editor
-.DS_Store
-.vscode/
-.idea/
+# SQLite and runtime data
+*.db
+*.db-shm
+*.db-wal
+app/server/database/portfolio.db
+app/server/database/seed.local.sql
 
 # Logs
+logs/
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-comandi.txt
+# OS and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
