@@ -58,12 +58,12 @@
     top: 0.75rem;
     right: 0.75rem;
   }
-  
+
   .language-btn {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }
-  
+
   .flag-icon {
     font-size: 1rem;
   }
@@ -74,7 +74,13 @@
 }
 
 @keyframes flagSwitch {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

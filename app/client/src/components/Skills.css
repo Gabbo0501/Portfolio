@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 80%, rgba(214, 158, 46, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
   pointer-events: none;
@@ -63,7 +63,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: #D69E2E;
+  background: #d69e2e;
   border-radius: 2px;
 }
 
@@ -111,7 +111,9 @@
 
 .skill-category-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 30px 60px rgba(8, 65, 92, 0.15), 0 0 0 1px rgba(214, 158, 46, 0.3);
+  box-shadow:
+    0 30px 60px rgba(8, 65, 92, 0.15),
+    0 0 0 1px rgba(214, 158, 46, 0.3);
   border-color: rgba(214, 158, 46, 0.2);
 }
 
@@ -161,54 +163,54 @@
 }
 
 .skill-tech-badge:hover {
-  background: #D69E2E;
+  background: #d69e2e;
   color: white;
-  border-color: #D69E2E;
+  border-color: #d69e2e;
   transform: translateY(-2px);
 }
 
 /* Category-specific icons and colors */
-.skill-category-card[data-category="frontend"] .skill-category-icon {
+.skill-category-card[data-category='frontend'] .skill-category-icon {
   background: #61dafb;
 }
 
-.skill-category-card[data-category="backend"] .skill-category-icon {
+.skill-category-card[data-category='backend'] .skill-category-icon {
   background: #68a063;
 }
 
-.skill-category-card[data-category="database"] .skill-category-icon {
+.skill-category-card[data-category='database'] .skill-category-icon {
   background: #f29111;
 }
 
-.skill-category-card[data-category="databases"] .skill-category-icon {
+.skill-category-card[data-category='databases'] .skill-category-icon {
   background: #f29111;
 }
 
-.skill-category-card[data-category="persistency"] .skill-category-icon {
+.skill-category-card[data-category='persistency'] .skill-category-icon {
   background: #f29111;
 }
 
-.skill-category-card[data-category="strumentietecnologie"] .skill-category-icon {
+.skill-category-card[data-category='strumentietecnologie'] .skill-category-icon {
   background: #ff6b35;
 }
 
-.skill-category-card[data-category="tools"] .skill-category-icon {
+.skill-category-card[data-category='tools'] .skill-category-icon {
   background: #ff6b35;
 }
 
-.skill-category-card[data-category="mobile"] .skill-category-icon {
+.skill-category-card[data-category='mobile'] .skill-category-icon {
   background: #a4c639;
 }
 
-.skill-category-card[data-category="cloud"] .skill-category-icon {
+.skill-category-card[data-category='cloud'] .skill-category-icon {
   background: #ff9500;
 }
 
-.skill-category-card[data-category="languages"] .skill-category-icon {
+.skill-category-card[data-category='languages'] .skill-category-icon {
   background: #6f42c1;
 }
 
-.skill-category-card[data-category="lingue"] .skill-category-icon {
+.skill-category-card[data-category='lingue'] .skill-category-icon {
   background: #6f42c1;
 }
 
@@ -243,31 +245,31 @@
   .skills-title {
     font-size: 2.5rem;
   }
-  
+
   .skills-intro {
     font-size: 1.1rem;
   }
-  
+
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     max-width: 900px;
   }
-  
+
   .skill-category-card {
     padding: 2rem;
   }
-  
+
   .skill-category-icon {
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
   }
-  
+
   .skill-category-title {
     font-size: 1.5rem;
   }
-  
+
   .skill-tech-badge {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
@@ -278,11 +280,11 @@
   .skills-section {
     padding: 4rem 0;
   }
-  
+
   .skills-title {
     font-size: 2rem;
   }
-  
+
   .skills-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -290,16 +292,16 @@
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .skill-category-card {
     padding: 1.5rem;
     width: 100%;
   }
-  
+
   .skill-technologies {
     gap: 0.5rem;
   }
-  
+
   .skill-tech-badge {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;

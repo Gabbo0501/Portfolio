@@ -1,4 +1,4 @@
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 import './LanguageToggle.css';
 
 function LanguageToggle() {
@@ -9,16 +9,14 @@ function LanguageToggle() {
       <button
         className="language-btn"
         onClick={toggleLanguage}
-        title={language === 'it' ? 'Switch to English' : 'Passa all\'Italiano'}
+        title={language === 'it' ? 'Switch to English' : "Passa all'Italiano"}
       >
         <div className="flag-container">
           <span className={`flag-icon ${language === 'it' ? 'flag-it' : 'flag-en'}`}>
-            {language === 'it' ? '🇮🇹' : '🇬🇧'}
+            {language === 'it' ? 'ðŸ‡®ðŸ‡¹' : 'ðŸ‡¬ðŸ‡§'}
           </span>
         </div>
-        <span className="language-text">
-          {language === 'it' ? 'IT' : 'EN'}
-        </span>
+        <span className="language-text">{language === 'it' ? 'IT' : 'EN'}</span>
       </button>
     </div>
   );

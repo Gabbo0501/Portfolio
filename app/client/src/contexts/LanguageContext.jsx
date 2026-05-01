@@ -1,20 +1,11 @@
-import { createContext, useContext, useState } from 'react';
-
-const LanguageContext = createContext();
-
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};
+import { useState } from 'react';
+import { LanguageContext } from './LanguageContextCore';
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState('it'); // Default: italiano
 
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'it' ? 'en' : 'it');
+    setLanguage((prev) => (prev === 'it' ? 'en' : 'it'));
   };
 
   const value = {
@@ -22,12 +13,8 @@ export const LanguageProvider = ({ children }) => {
     setLanguage,
     toggleLanguage,
     isItalian: language === 'it',
-    isEnglish: language === 'en'
+    isEnglish: language === 'en',
   };
 
-  return (
-    <LanguageContext.Provider value={value}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };

@@ -7,6 +7,10 @@
   "scripts": {
     "start": "node index.mjs",
     "dev": "nodemon index.mjs",
+    "build": "node --check index.mjs && node --check dao.mjs && node --check seed.mjs",
+    "lint": "node --check index.mjs && node --check dao.mjs && node --check seed.mjs",
+    "seed": "node seed.mjs",
+    "seed:reset": "node seed.mjs --reset",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -20,7 +24,9 @@
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.4.1",
     "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
     "sqlite3": "^5.1.7"

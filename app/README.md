@@ -1,78 +1,186 @@
-# Portfolio personale — Gabriele Mondino
+﻿# Personal Portfolio - Full-stack React + Express
 
-Un portfolio web (Single Page Application) sviluppato come progetto personale universitario. Frontend in React + Vite, backend in Node.js/Express e dati memorizzati in SQLite.
+Single Page Application (SPA) portfolio built as a personal university project.
 
-Questo repository contiene il codice del sito, il server API che fornisce i contenuti in modalità multilingua (it/en) e lo schema SQL per popolare il database locale.
+- Frontend: React + Vite
+- Backend: Node.js + Express
+- Data: SQLite local file DB
+- Content: server-driven and bilingual (`it` / `en`)
 
-## Cosa c'è qui
-- `client/` – codice frontend React (Vite)
-- `server/` – server Node.js (Express) + accesso a SQLite
+## Repository Structure
 
-## Tecnologie
+- `client/`: React (Vite) app
+- `server/`: Express API, SQLite access, static images
+- `server/database/schema.sql`: database schema
+- `server/database/seed.sql`: demo seed data
+- `../.github/workflows/ci.yml`: GitHub Actions CI for format, lint and build
+
+## Features
+
+- Bilingual content (`it` / `en`) served by the API
+- One endpoint to fetch the whole portfolio dataset
+- Static project images served by the backend under `/images`
+- Runtime SQLite database generated from schema + seed files
+- Basic production hardening with Helmet, API rate limiting and configurable CORS
+
+## Tech Stack
+
 - Frontend: React, Vite, React-Bootstrap
 - Backend: Node.js, Express, sqlite3
-- Styling: CSS + Bootstrap icons
+- Styling: CSS, Bootstrap Icons
+- Tooling: ESLint, Prettier, GitHub Actions
+- Deployment: Docker, Nginx client image, Caddy reverse proxy
 
-## Requisiti
-- Node.js v16+ (consigliato)
+## Requirements
 
-## Setup e avvio (sviluppo)
+- Node.js 22+ recommended, Node.js 18+ minimum for local development
+- npm
 
-1) Installa dipendenze
+## Environment Variables
+
+Copy `.env.example` when you need local overrides:
 
 ```powershell
-# Dal root del repository
-cd server
+Copy-Item .env.example .env
+```
+
+Available variables:
+
+- `PORT`: server port. Default: `3001`.
+- `NODE_ENV`: use `production` to enable production CORS allowlist behavior.
+- `CORS_ORIGINS`: comma-separated list of allowed browser origins in production, for example `https://gabrielemondino.it,https://www.gabrielemondino.it`.
+- `DB_PATH`: optional SQLite database file path. Docker uses `/app/data/portfolio.db` so the runtime DB volume does not hide schema and seed files.
+- `DB_RESET`: set to `1` to delete and recreate the SQLite DB on startup.
+- `DB_RESET_ON_SCHEMA_CHANGE`: set to `1` to recreate the DB when schema/seed files are newer than the DB file.
+- `DB_RESET_ON_INCOMPATIBLE_SCHEMA`: defaults to enabled. Set to `0` to disable automatic reset for incompatible local schemas.
+
+## Local Development
+
+Install dependencies from the `app/` directory:
+
+```powershell
 npm install
-
-cd ..\client
-npm install
+npm --prefix server install
+npm --prefix client install
 ```
 
-2) Avvia server e client (in terminali separati)
+Run server and client together:
 
 ```powershell
-# Terminale 1 — server (porta 3001)
-cd server
-npm run dev
-
-# Terminale 2 — client (porta 5173)
-cd client
 npm run dev
 ```
 
-2) Deploy rapido sulla VM (workflow minimo — copia/incolla)
-
-Dal tuo PC (PowerShell) — costruisci, salva e trasferisci le immagini + file di deploy sulla VM:
+Or run them in two separate terminals:
 
 ```powershell
-cd "c:\Users\gabri\OneDrive\Documenti\Portfolio\scripts"; powershell -NoProfile -ExecutionPolicy Bypass -File .\deploy_local.ps1
-ssh -i "c:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" ubuntu@129.152.14.247 "bash ~/deploy_vm.sh portfolio-images.tar"
+# terminal 1 - API server (default: http://localhost:3001)
+npm --prefix server run dev
 
-# 3) Se hai modificato solo la Caddyfile: ricrea solo caddy (plugin -> legacy -> run)
-sudo docker compose up -d --no-deps --force-recreate caddy || \
-  sudo docker-compose up -d --no-deps --force-recreate caddy || \
-  (sudo docker rm -f caddy || true; sudo docker run -d --name caddy --restart unless-stopped --network portfolio_net -p 80:80 -p 443:443 -v ~/Portfolio/app/Caddyfile:/etc/caddy/Caddyfile:ro -v caddy_data:/data -v caddy_config:/config caddy:2)
-
-# 4) Controlli e pulizia
-sudo docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-sudo docker logs --tail 200 caddy
-rm ~/portfolio-images.tar || true
+# terminal 2 - Vite dev server (http://localhost:5173)
+npm --prefix client run dev
 ```
+
+Open the app:
+
+- UI: http://localhost:5173
+- API example: http://localhost:3001/api/portfolio/it
+
+Vite is configured to proxy `/api` and `/images` to the backend during development.
+
+## Quality Commands
+
+```powershell
+npm run format
+npm run format:check
+npm run lint
+npm run build
+```
+
+VS Code users can keep format-on-save enabled with the workspace settings in `.vscode/settings.json`.
+
+## API
+
+### Get Full Portfolio Data
+
+`GET /api/portfolio/:lang`
+
+- `:lang` must be `it` or `en`
+- Response includes personal info, education, courses, exams, projects with technologies and images, skills, certifications
+
+Example:
+
+```text
+GET http://localhost:3001/api/portfolio/en
+```
+
+### Static Images
+
+Images are served from the backend at:
+
+`GET /images/...`
+
+The files live under `server/public/images`.
 
 ## Database (SQLite)
-- Lo schema si trova in `server/database/schema.sql`.
-- Il db locale si trova in `server/database/portfolio.sql`.
-- Se il server rileva che lo schema è più recente del DB, ricrea il DB. ATTENZIONE: la ricreazione è distruttiva per i dati locali.
 
-## API principali
-- `GET /api/portfolio/:lang` — ritorna tutti i dati per la lingua richiesta (`it` o `en`)
+- Schema: `server/database/schema.sql`
+- Demo seed data: `server/database/seed.sql`
+- Optional private/local seed overrides: `server/database/seed.local.sql`
+- Runtime database file: `server/database/portfolio.db`
 
-Esempio: `GET http://localhost:3001/api/portfolio/it`
+The public seed is intentionally demo content. To initialize the DB with your real personal data without committing it:
 
-## Internazionalizzazione
-- I contenuti leggono `language` (`it` / `en`) e il server restituisce i testi corrispondenti (personal_info, education, courses, projects, skills, certifications).
+```powershell
+Copy-Item server/database/seed.local.example.sql server/database/seed.local.sql
+```
 
-## Contatti
-- Autore: Gabriele Mondino
-- Email: gabrielemondino05@gmail.com
+Then edit `server/database/seed.local.sql`. It is ignored by git and is applied after `seed.sql`, so it can override demo placeholders with your real public contact/profile data.
+
+On startup:
+
+- If the database does not exist or has no tables, the server applies `schema.sql`, then `seed.sql`, then optional `seed.local.sql`.
+- If an older or incompatible schema is detected, the server can reset the DB to match the current schema.
+- In local development, use the reset flags above when you want a fresh DB after changing schema or seed data.
+
+Manual seeding from the repository root:
+
+```powershell
+npm run seed
+npm run seed:reset
+```
+
+## Security Notes
+
+- CORS is open in development for convenience.
+- In production, set `NODE_ENV=production` and configure `CORS_ORIGINS` with your real frontend domain.
+- Helmet is enabled globally for standard security headers.
+- A light rate limit is applied only under `/api`.
+
+## Docker
+
+This repo includes Dockerfiles for both client and server.
+
+### Compose Files
+
+- `docker-compose.yml`: starts `server` and `client`; only the API is published on the host (`3001:3001`).
+- `docker-compose.prod.yml`: starts `server`, `client` and `caddy`; Caddy publishes ports 80/443 and routes traffic to the correct container.
+
+### Production-like Stack
+
+Use `docker-compose.prod.yml`:
+
+```powershell
+cd app
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Configure your domain in `Caddyfile`. The default file is set up to:
+
+- forward `/api/*` to the server container
+- forward `/images/*` to the server container
+- forward all other paths to the client container
+
+### Notes
+
+- The server runtime database is persisted via a Docker volume (`db_data`) mounted at `/app/data`.
+- Health check uses `GET /api/portfolio/it` on port 3001.

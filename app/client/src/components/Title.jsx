@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 import './Title.css';
 
 function Title() {
@@ -36,9 +36,9 @@ function Title() {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ 
+      element.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'start',
       });
     }
   };
@@ -88,10 +88,10 @@ function Title() {
             { id: 'courses', icon: 'mortarboard', label: t('nav.courses') },
             { id: 'projects', icon: 'briefcase', label: t('nav.projects') },
             { id: 'skills', icon: 'tools', label: t('nav.skills') },
-            { id: 'contact', icon: 'envelope', label: t('nav.contact') }
+            { id: 'contact', icon: 'envelope', label: t('nav.contact') },
           ].map((item, index) => (
             <div key={item.id} className="nav-item" style={{ '--delay': `${index * 0.1}s` }}>
-              <button 
+              <button
                 className="nav-btn"
                 onClick={() => scrollToSection(item.id)}
                 title={item.label}
@@ -100,17 +100,16 @@ function Title() {
               </button>
             </div>
           ))}
-          
+
           {/* Language Toggle */}
           <div className="nav-item language-toggle" style={{ '--delay': '0.6s' }}>
-            <button 
+            <button
               className="nav-btn language-btn"
               onClick={toggleLanguage}
-              title={language === 'it' ? 'Switch to English' : 'Passa all\'Italiano'}
+              title={language === 'it' ? 'Switch to English' : "Passa all'Italiano"}
             >
-              <span className="flag-icon">
-                {language === 'it' ? '🇮🇹' : '🇬🇧'}
-              </span>
+              <i className="bi bi-translate" aria-hidden="true"></i>
+              <span className="language-code">{language === 'it' ? 'IT' : 'EN'}</span>
             </button>
           </div>
         </div>
@@ -121,36 +120,37 @@ function Title() {
         <Container>
           <Row className="justify-content-center">
             <Col lg={12} xl={10}>
-              
               {/* Greeting */}
               <div className="hero-greeting">
                 <span className="greeting-text">{t('title.greeting')}</span>
               </div>
-              
+
               {/* Main Name with Animated Underline */}
               <div className="hero-name">
                 <h1 className="name-text">
                   {personalInfo.name.split(' ').map((word, index) => (
-                    <span key={index} className="name-word" style={{ '--delay': `${index * 0.2}s` }}>
+                    <span
+                      key={index}
+                      className="name-word"
+                      style={{ '--delay': `${index * 0.2}s` }}
+                    >
                       {word}
                     </span>
                   ))}
                 </h1>
                 <div className="name-underline"></div>
               </div>
-              
+
               {/* Role with Icon */}
               <div className="hero-role">
                 <div className="role-container">
                   <div className="role-icon">
                     <i className="bi bi-code-slash"></i>
                   </div>
-                  <h2 className="role-text">
-                    {t('title.role')}
-                  </h2>
+                  <h2 className="role-text">{t('title.role')}</h2>
                 </div>
               </div>
-              
+
               {/* Description */}
               <div className="hero-description">
                 <p className="description-text">
@@ -160,30 +160,19 @@ function Title() {
 
               {/* CTA Buttons */}
               <div className="hero-actions">
-                <button 
-                  className="cta-btn primary"
-                  onClick={() => scrollToSection('projects')}
-                >
+                <button className="cta-btn primary" onClick={() => scrollToSection('projects')}>
                   <span className="btn-text">{t('title.viewWork')}</span>
                   <i className="bi bi-arrow-right"></i>
                 </button>
-                <button 
-                  className="cta-btn secondary"
-                  onClick={() => scrollToSection('contact')}
-                >
+                <button className="cta-btn secondary" onClick={() => scrollToSection('contact')}>
                   <span className="btn-text">{t('title.getInTouch')}</span>
                   <i className="bi bi-chat-dots"></i>
                 </button>
-                <a 
-                  href="/cv.pdf"
-                  download="GabrieleMondino_CV.pdf"
-                  className="cta-btn secondary"
-                >
+                <a href="/cv.pdf" download="GabrieleMondino_CV.pdf" className="cta-btn secondary">
                   <span className="btn-text">{t('title.downloadCV')}</span>
                   <i className="bi bi-download"></i>
                 </a>
               </div>
-              
             </Col>
           </Row>
         </Container>
@@ -193,7 +182,7 @@ function Title() {
       <div className="title-curve">
         <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
           {/* lowered control points so center peak is lower (less tall curve) */}
-          <path d="M0,80 C480,40 960,40 1440,80 Z" fill="#FAFAFA"/>
+          <path d="M0,80 C480,40 960,40 1440,80 Z" fill="#FAFAFA" />
         </svg>
       </div>
     </section>

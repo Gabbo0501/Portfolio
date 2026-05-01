@@ -21,7 +21,9 @@ function Contact() {
       }
     })();
 
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, [language]);
 
   const name = personal?.name;
@@ -44,7 +46,7 @@ function Contact() {
             <h2 className="contact-title text-center reveal">{t('contact.title')}</h2>
           </Col>
         </Row>
-        
+
         <Row className="justify-content-center">
           <Col lg={10} xl={8}>
             <Row className="g-4">
@@ -55,25 +57,34 @@ function Contact() {
                   </a>
                   <div className="contact-info">
                     <h5>{t('contact.emailTitle')}</h5>
-                    <p><a href={emailUrl}>{email || 'gabrielemondino05@gmail.com'}</a></p>
+                    <p>
+                      <a href={emailUrl}>{email || 'gabrielemondino05@gmail.com'}</a>
+                    </p>
                   </div>
                 </div>
               </Col>
-              
+
               <Col md={6}>
                 <div className="contact-item reveal" style={{ '--index': 1 }}>
-                  <a className="contact-icon" href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="contact-icon"
+                    href={linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i className="bi bi-linkedin"></i>
                   </a>
                   <div className="contact-info">
                     <h5>{t('contact.linkedinTitle')}</h5>
                     <p>
-                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">{name || linkedinUrl.replace(/^https?:\/\/(www\.)?linkedin\.com\//i, '')}</a>
+                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+                        {name || linkedinUrl.replace(/^https?:\/\/(www\.)?linkedin\.com\//i, '')}
+                      </a>
                     </p>
                   </div>
                 </div>
               </Col>
-              
+
               <Col md={6}>
                 <div className="contact-item reveal" style={{ '--index': 2 }}>
                   <div className="contact-icon">
@@ -85,16 +96,23 @@ function Contact() {
                   </div>
                 </div>
               </Col>
-              
+
               <Col md={6}>
                 <div className="contact-item reveal" style={{ '--index': 3 }}>
-                  <a className="contact-icon" href={githubUrl} target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="contact-icon"
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i className="bi bi-github"></i>
                   </a>
                   <div className="contact-info">
                     <h5>{t('contact.githubTitle')}</h5>
                     <p>
-                      <a href={githubUrl} target="_blank" rel="noopener noreferrer">{githubHandle}</a>
+                      <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+                        {githubHandle}
+                      </a>
                     </p>
                   </div>
                 </div>

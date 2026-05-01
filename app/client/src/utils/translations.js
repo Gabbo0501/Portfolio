@@ -7,17 +7,18 @@ export const translations = {
       courses: 'Corsi',
       projects: 'Progetti',
       skills: 'Competenze',
-      contact: 'Contatti'
+      contact: 'Contatti',
     },
-    
+
     // Title Section
     title: {
       greeting: 'Ciao, sono',
       role: 'Studente di Informatica',
-      description: 'Studente all\'ultimo anno di magistrale in Ingegneria del Software presso il Politecnico di Torino.',
+      description:
+        "Studente all'ultimo anno di magistrale in Ingegneria del Software presso il Politecnico di Torino.",
       viewWork: 'I Miei Progetti',
       getInTouch: 'Contattami',
-      downloadCV: 'Scarica CV'
+      downloadCV: 'Scarica CV',
     },
 
     // About Section
@@ -30,22 +31,26 @@ export const translations = {
       grade: 'Voto',
       webDev: {
         title: 'Sviluppo Web',
-        description: 'Frontend e Backend development. Interesse per applicazioni web scalabili, performanti e architetture distribuite con microservizi.'
+        description:
+          'Frontend e Backend development. Interesse per applicazioni web scalabili, performanti e architetture distribuite con microservizi.',
       },
       mobileDev: {
         title: 'Mobile Development',
-        description: 'Sviluppo di applicazioni mobile innovative e user-friendly per iOS e Android.'
+        description:
+          'Sviluppo di applicazioni mobile innovative e user-friendly per iOS e Android.',
       },
       softwareEng: {
         title: 'Software Engineering',
-        description: 'Progettazione e sviluppo di sistemi software complessi con metodologie moderne e best practices.'
-      }
+        description:
+          'Progettazione e sviluppo di sistemi software complessi con metodologie moderne e best practices.',
+      },
     },
 
     // Courses Section
     courses: {
       title: 'Formazione',
-      description: 'Ecco alcuni dei principali corsi che ho frequentato durante il mio percorso universitario al Politecnico di Torino.',
+      description:
+        'Ecco alcuni dei principali corsi che ho frequentato durante il mio percorso universitario al Politecnico di Torino.',
       topics: 'Argomenti trattati:',
       details: 'Dettagli corso',
       showAll: 'Visualizza tutti gli esami',
@@ -60,21 +65,23 @@ export const translations = {
       date: 'Data',
       info: 'Info',
       close: 'Chiudi',
-      modalNote: 'Clicca sui link "Dettagli" per vedere la pagina ufficiale del corso'
+      modalNote: 'Clicca sui link "Dettagli" per vedere la pagina ufficiale del corso',
     },
 
     // Projects Section
     projects: {
       title: 'I Miei Progetti',
-      description: 'Ecco alcuni progetti che ho sviluppato durante il mio percorso universitario e nei miei studi personali.',
+      description:
+        'Ecco alcuni progetti che ho sviluppato durante il mio percorso universitario e nei miei studi personali.',
       code: 'Codice',
-      demo: 'Demo'
+      demo: 'Demo',
     },
 
     // Skills Section
     skills: {
       title: 'Le Mie Competenze',
-      description: 'Ecco le principali tecnologie e strumenti che ho imparato ad utilizzare durante il mio percorso di studi.'
+      description:
+        'Ecco le principali tecnologie e strumenti che ho imparato ad utilizzare durante il mio percorso di studi.',
     },
 
     // Contact Section
@@ -83,21 +90,21 @@ export const translations = {
       emailTitle: 'Email',
       linkedinTitle: 'LinkedIn',
       locationTitle: 'Località',
-      githubTitle: 'GitHub'
+      githubTitle: 'GitHub',
     },
 
     // Footer
     footer: {
       quickLinks: 'Link Rapidi',
       social: 'Social & Contatti',
-      rights: 'Tutti i diritti riservati.'
+      rights: 'Tutti i diritti riservati.',
     },
 
     // Common
     common: {
       loading: 'Caricamento...',
-      error: 'Errore nel caricamento dei dati'
-    }
+      error: 'Errore nel caricamento dei dati',
+    },
   },
 
   en: {
@@ -108,17 +115,17 @@ export const translations = {
       courses: 'Courses',
       projects: 'Projects',
       skills: 'Skills',
-      contact: 'Contact'
+      contact: 'Contact',
     },
 
     // Title Section
     title: {
-      greeting: 'Hi, I\'m',
+      greeting: "Hi, I'm",
       role: 'Computer Science Student',
-      description: 'Final year Master\'s student in Software Engineering at Politecnico di Torino.',
+      description: "Final year Master's student in Software Engineering at Politecnico di Torino.",
       viewWork: 'View My Work',
       getInTouch: 'Get In Touch',
-      downloadCV: 'Download CV'
+      downloadCV: 'Download CV',
     },
 
     // About Section
@@ -131,29 +138,33 @@ export const translations = {
       grade: 'Grade',
       webDev: {
         title: 'Web Development',
-        description: 'Frontend and Backend development. Interest in scalable, performant web applications and distributed microservices architectures.'
+        description:
+          'Frontend and Backend development. Interest in scalable, performant web applications and distributed microservices architectures.',
       },
       mobileDev: {
         title: 'Mobile Development',
-        description: 'Development of innovative and user-friendly mobile applications for iOS and Android.'
+        description:
+          'Development of innovative and user-friendly mobile applications for iOS and Android.',
       },
       softwareEng: {
         title: 'Software Engineering',
-        description: 'Design and development of complex software systems with modern methodologies and best practices.'
-      }
+        description:
+          'Design and development of complex software systems with modern methodologies and best practices.',
+      },
     },
 
     // Courses Section
     courses: {
       title: 'Education',
-      description: 'Here are some of the main courses I attended during my university path at Politecnico di Torino.',
+      description:
+        'Here are some of the main courses I attended during my university path at Politecnico di Torino.',
       topics: 'Topics covered:',
       details: 'Course details',
       showAll: 'View all exams',
       allExams: 'All Completed Exams',
-      magistrale: 'Master\'s Degree',
+      magistrale: "Master's Degree",
       magistraleDesc: 'Computer Engineering',
-      triennale: 'Bachelor\'s Degree',
+      triennale: "Bachelor's Degree",
       triennaleDesc: 'Computer Engineering',
       exam: 'Exam',
       credits: 'ECTS',
@@ -161,21 +172,22 @@ export const translations = {
       date: 'Date',
       info: 'Info',
       close: 'Close',
-      modalNote: 'Click on "Details" links to see the official course page'
+      modalNote: 'Click on "Details" links to see the official course page',
     },
 
     // Projects Section
     projects: {
       title: 'My Projects',
-      description: 'Here are some projects I developed during my university path and personal studies.',
+      description:
+        'Here are some projects I developed during my university path and personal studies.',
       code: 'Code',
-      demo: 'Demo'
+      demo: 'Demo',
     },
 
     // Skills Section
     skills: {
       title: 'My Skills',
-      description: 'Here are the main technologies and tools I learned to use during my studies.'
+      description: 'Here are the main technologies and tools I learned to use during my studies.',
     },
 
     // Contact Section
@@ -184,20 +196,20 @@ export const translations = {
       emailTitle: 'Email',
       linkedinTitle: 'LinkedIn',
       locationTitle: 'Location',
-      githubTitle: 'GitHub'
+      githubTitle: 'GitHub',
     },
 
     // Footer
     footer: {
       quickLinks: 'Quick Links',
       social: 'Social & Contact',
-      rights: 'All rights reserved.'
+      rights: 'All rights reserved.',
     },
 
     // Common
     common: {
       loading: 'Loading...',
-      error: 'Error loading data'
-    }
-  }
+      error: 'Error loading data',
+    },
+  },
 };

@@ -1,9 +1,3 @@
-.git
-.github
-.env
-.env.*
-!.env.example
-
 node_modules/
 client/node_modules/
 server/node_modules/
@@ -18,19 +12,12 @@ server/dist/
 
 logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
 *.db
 *.db-shm
 *.db-wal
 server/database/portfolio.db
 server/database/seed.local.sql
 
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
+client/public/cv.pdf
+client/public/icon.png
+server/public/images/projects/
