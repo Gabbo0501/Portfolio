@@ -1,4 +1,4 @@
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from './useLanguage';
 import { translations } from '../utils/translations';
 
 export const useTranslation = () => {
@@ -7,7 +7,7 @@ export const useTranslation = () => {
   const t = (key) => {
     const keys = key.split('.');
     let translation = translations[language];
-    
+
     for (const k of keys) {
       if (translation && translation[k]) {
         translation = translation[k];
@@ -16,7 +16,7 @@ export const useTranslation = () => {
         return key; // Return the key if translation is missing
       }
     }
-    
+
     return translation;
   };
 

@@ -12,16 +12,10 @@ const api = axios.create({
 });
 
 export const portfolioAPI = {
-
   getPortfolioData: async (language = 'it') => {
-    try {
-      const response = await api.get(`/portfolio/${language}`);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await api.get(`/portfolio/${language}`);
+    return response.data;
   },
-
 };
 
 export default api;

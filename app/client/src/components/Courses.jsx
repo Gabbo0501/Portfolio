@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Modal, Table } from 'react-bootstrap';
 import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Courses.css';
 
@@ -58,9 +58,7 @@ function Courses() {
       <Container>
         <Row className="mb-5">
           <Col>
-            <h2 className="courses-title reveal">
-              {t('courses.title')}
-            </h2>
+            <h2 className="courses-title reveal">{t('courses.title')}</h2>
             <p className="courses-intro reveal" style={{ '--index': 1 }}>
               {t('courses.description')}
             </p>
@@ -74,15 +72,15 @@ function Courses() {
               <div className="course-header">
                 <h3 className="course-title">{course.name}</h3>
               </div>
-              
+
               <div className="course-badges">
                 <span className="course-badge">{course.code}</span>
                 <span className="course-badge">{course.credits} CFU</span>
                 <span className="course-badge grade">{course.grade}/30</span>
               </div>
-              
+
               <p className="course-description">{course.description}</p>
-              
+
               <div className="course-topics-section">
                 <h6>{t('courses.topics')}</h6>
                 <div className="course-topics">
@@ -95,8 +93,10 @@ function Courses() {
               </div>
 
               <div className="course-footer">
-                <div className="course-meta">{course.semester} - {course.year}</div>
-                <a 
+                <div className="course-meta">
+                  {course.semester} - {course.year}
+                </div>
+                <a
                   href={course.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -112,10 +112,7 @@ function Courses() {
 
         {/* Button to show all exams */}
         <div className="show-all-section">
-          <button 
-            onClick={handleShowModal}
-            className="show-all-btn"
-          >
+          <button onClick={handleShowModal} className="show-all-btn">
             <i className="bi bi-list-ul"></i>
             {t('courses.showAll')}
           </button>
@@ -141,25 +138,30 @@ function Courses() {
                   <p>{t('courses.magistraleDesc')}</p>
                 </div>
               </div>
-              
+
               <div className="exam-table-container">
                 <Table hover className="exam-table">
                   <thead>
                     <tr>
                       <th>
-                        <i className="bi bi-bookmark me-2"></i>{t('courses.exam')}
+                        <i className="bi bi-bookmark me-2"></i>
+                        {t('courses.exam')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-award me-2"></i>{t('courses.credits')}
+                        <i className="bi bi-award me-2"></i>
+                        {t('courses.credits')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-star me-2"></i>{t('courses.grade')}
+                        <i className="bi bi-star me-2"></i>
+                        {t('courses.grade')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-calendar me-2"></i>{t('courses.date')}
+                        <i className="bi bi-calendar me-2"></i>
+                        {t('courses.date')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-link-45deg me-2"></i>{t('courses.info')}
+                        <i className="bi bi-link-45deg me-2"></i>
+                        {t('courses.info')}
                       </th>
                     </tr>
                   </thead>
@@ -176,24 +178,23 @@ function Courses() {
                           </div>
                         </td>
                         <td className="text-center" data-label={t('courses.credits')}>
-                          <span className="exam-badge credits">
-                            {exam.credits}
-                          </span>
+                          <span className="exam-badge credits">{exam.credits}</span>
                         </td>
                         <td className="text-center" data-label={t('courses.grade')}>
-                          <span className="exam-badge grade">
-                            {exam.grade}
-                          </span>
+                          <span className="exam-badge grade">{exam.grade}</span>
                         </td>
                         <td className="text-center exam-date" data-label={t('courses.date')}>
-                          {new Date(exam.date.split('/').reverse().join('-')).toLocaleDateString(language === 'it' ? 'it-IT' : 'en-US', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric'
-                          })}
+                          {new Date(exam.date.split('/').reverse().join('-')).toLocaleDateString(
+                            language === 'it' ? 'it-IT' : 'en-US',
+                            {
+                              day: '2-digit',
+                              month: 'short',
+                              year: 'numeric',
+                            }
+                          )}
                         </td>
                         <td className="text-center">
-                          <a 
+                          <a
                             href={exam.url}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -213,31 +214,36 @@ function Courses() {
             {/* Triennale Exams */}
             <div className="degree-section">
               <div className="degree-header">
-                <div className="degree-icon"/>
+                <div className="degree-icon" />
                 <div className="degree-info">
                   <h4>{t('courses.triennale')}</h4>
                   <p>{t('courses.triennaleDesc')}</p>
                 </div>
               </div>
-              
+
               <div className="exam-table-container">
                 <Table hover className="exam-table">
                   <thead>
                     <tr>
                       <th>
-                        <i className="bi bi-bookmark me-2"></i>{t('courses.exam')}
+                        <i className="bi bi-bookmark me-2"></i>
+                        {t('courses.exam')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-award me-2"></i>{t('courses.credits')}
+                        <i className="bi bi-award me-2"></i>
+                        {t('courses.credits')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-star me-2"></i>{t('courses.grade')}
+                        <i className="bi bi-star me-2"></i>
+                        {t('courses.grade')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-calendar me-2"></i>{t('courses.date')}
+                        <i className="bi bi-calendar me-2"></i>
+                        {t('courses.date')}
                       </th>
                       <th className="text-center">
-                        <i className="bi bi-link-45deg me-2"></i>{t('courses.info')}
+                        <i className="bi bi-link-45deg me-2"></i>
+                        {t('courses.info')}
                       </th>
                     </tr>
                   </thead>
@@ -254,24 +260,23 @@ function Courses() {
                           </div>
                         </td>
                         <td className="text-center" data-label={t('courses.credits')}>
-                          <span className="exam-badge credits">
-                            {exam.credits}
-                          </span>
+                          <span className="exam-badge credits">{exam.credits}</span>
                         </td>
                         <td className="text-center" data-label={t('courses.grade')}>
-                          <span className="exam-badge grade">
-                            {exam.grade}
-                          </span>
+                          <span className="exam-badge grade">{exam.grade}</span>
                         </td>
                         <td className="text-center exam-date" data-label={t('courses.date')}>
-                          {new Date(exam.date.split('/').reverse().join('-')).toLocaleDateString(language === 'it' ? 'it-IT' : 'en-US', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric'
-                          })}
+                          {new Date(exam.date.split('/').reverse().join('-')).toLocaleDateString(
+                            language === 'it' ? 'it-IT' : 'en-US',
+                            {
+                              day: '2-digit',
+                              month: 'short',
+                              year: 'numeric',
+                            }
+                          )}
                         </td>
                         <td className="text-center">
-                          <a 
+                          <a
                             href={exam.url}
                             target="_blank"
                             rel="noopener noreferrer"

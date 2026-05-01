@@ -1,0 +1,47 @@
+﻿# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Builds
+build/
+dist/
+dist-ssr/
+client/dist/
+server/dist/
+coverage/
+
+# Environment
+.env
+.env.*
+!.env.example
+*.local
+
+# SQLite/runtime data
+*.db
+*.db-shm
+*.db-wal
+server/database/portfolio.db
+server/database/seed.local.sql
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

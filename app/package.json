@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack personal portfolio with React, Express and SQLite.",
+  "scripts": {
+    "dev": "concurrently -n server,client -c cyan,green \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix client run build && npm --prefix server run build",
+    "lint": "npm --prefix client run lint && npm --prefix server run lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "seed": "npm --prefix server run seed",
+    "seed:reset": "npm --prefix server run seed:reset"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "prettier": "^3.6.2"
+  }
+}

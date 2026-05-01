@@ -4,7 +4,7 @@
 
 /* Section Background */
 .about-section {
-  background: linear-gradient(135deg, #FAFAFA 0%, #EDF2F7 50%, #FAFAFA 100%);
+  background: linear-gradient(135deg, #fafafa 0%, #edf2f7 50%, #fafafa 100%);
   position: relative;
   overflow: hidden;
   padding: 6rem 0;
@@ -17,7 +17,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
+  background-image:
     linear-gradient(rgba(8, 65, 92, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(8, 65, 92, 0.02) 1px, transparent 1px);
   background-size: 50px 50px;
@@ -33,7 +33,7 @@
 .about-title {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 800;
-  color: #08415C;
+  color: #08415c;
   margin-bottom: 3rem;
   position: relative;
 }
@@ -46,7 +46,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: #D69E2E;
+  background: #d69e2e;
   border-radius: 2px;
 }
 
@@ -68,12 +68,12 @@
   gap: 0.75rem;
   font-size: 2rem;
   font-weight: 700;
-  color: #08415C;
+  color: #08415c;
   margin-bottom: 3rem;
 }
 
 .section-header i {
-  color: #D69E2E;
+  color: #d69e2e;
   font-size: 2.2rem;
 }
 
@@ -101,14 +101,16 @@
 
 .education-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(8, 65, 92, 0.15), 0 0 0 1px rgba(214, 158, 46, 0.2);
+  box-shadow:
+    0 20px 40px rgba(8, 65, 92, 0.15),
+    0 0 0 1px rgba(214, 158, 46, 0.2);
 }
 
 .education-icon {
   width: 60px;
   height: 60px;
   min-width: 60px;
-  background: #08415C;
+  background: #08415c;
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -132,7 +134,7 @@
 
 .education-institution {
   font-size: 1.1rem;
-  color: #08415C;
+  color: #08415c;
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -180,19 +182,21 @@
 
 .interest-card:hover {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(8, 65, 92, 0.2), 0 0 0 1px rgba(214, 158, 46, 0.2);
+  box-shadow:
+    0 25px 50px rgba(8, 65, 92, 0.2),
+    0 0 0 1px rgba(214, 158, 46, 0.2);
 }
 
 .interest-icon {
   font-size: 4rem;
-  color: #D69E2E;
+  color: #d69e2e;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
 }
 
 .interest-card:hover .interest-icon {
   transform: scale(1.1);
-  color: #08415C;
+  color: #08415c;
 }
 
 .interest-title {
@@ -220,14 +224,18 @@
   width: 60px;
   height: 60px;
   border: 3px solid rgba(8, 65, 92, 0.1);
-  border-top: 3px solid #08415C;
+  border-top: 3px solid #08415c;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Animations */
@@ -247,27 +255,27 @@
   .about-title {
     font-size: 2.5rem;
   }
-  
+
   .about-bio {
     font-size: 1.1rem;
     padding: 0 1rem;
   }
-  
+
   .section-header {
     font-size: 1.75rem;
   }
-  
+
   .education-icon {
     width: 50px;
     height: 50px;
     min-width: 50px;
     font-size: 1.1rem;
   }
-  
+
   .interest-icon {
     font-size: 3rem;
   }
-  
+
   .interest-card:hover {
     transform: translateY(-5px) scale(1.01);
   }

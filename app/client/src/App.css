@@ -1,28 +1,29 @@
 :root {
-  --primary-color: #08415C;
-  --secondary-color: #D69E2E;
-  --neutral-color: #EDF2F7;
+  --primary-color: #08415c;
+  --secondary-color: #d69e2e;
+  --neutral-color: #edf2f7;
   --dark-color: #041e2a;
-  --light-color: #FAFAFA;
+  --light-color: #fafafa;
 
   --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
   --gradient-light: linear-gradient(135deg, var(--light-color) 0%, var(--neutral-color) 100%);
-  --gradient-accent: linear-gradient(135deg, var(--secondary-color) 0%, #B7791F 100%);
-  --gradient-dark: linear-gradient(135deg, var(--dark-color) 0%, #102A43 100%);
-  
+  --gradient-accent: linear-gradient(135deg, var(--secondary-color) 0%, #b7791f 100%);
+  --gradient-dark: linear-gradient(135deg, var(--dark-color) 0%, #102a43 100%);
+
   --font-family-primary: 'Playfair Display', serif;
-  --font-family-secondary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  
+  --font-family-secondary:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
   --section-padding: 5rem 0;
   --container-padding: 1rem;
   --border-radius: 0.75rem;
   --border-radius-lg: 1.25rem;
-  
+
   --shadow-sm: 0 2px 15px rgba(26, 54, 93, 0.08);
   --shadow-md: 0 8px 25px rgba(26, 54, 93, 0.12);
   --shadow-lg: 0 15px 35px rgba(26, 54, 93, 0.15);
   --shadow-xl: 0 25px 50px rgba(26, 54, 93, 0.2);
-  
+
   --transition-base: all 0.3s ease;
   --transition-fast: all 0.2s ease;
 }
@@ -63,7 +64,6 @@ body.modal-open {
   font-family: var(--font-family-secondary);
 }
 
-
 .text-primary {
   color: var(--primary-color) !important;
 }
@@ -71,7 +71,6 @@ body.modal-open {
 .text-secondary {
   color: var(--secondary-color) !important;
 }
-
 
 .bg-dark {
   background: var(--dark-color) !important;
@@ -146,7 +145,11 @@ body.modal-open {
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -157,10 +160,18 @@ body.modal-open {
   }
 }
 
-.fade-in-1 { animation: fadeInUp 1s ease-out 0.1s both; }
-.fade-in-2 { animation: fadeInUp 1s ease-out 0.3s both; }
-.fade-in-3 { animation: fadeInUp 1s ease-out 0.5s both; }
-.fade-in-5 { animation: fadeInUp 1s ease-out 0.9s both; }
+.fade-in-1 {
+  animation: fadeInUp 1s ease-out 0.1s both;
+}
+.fade-in-2 {
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+.fade-in-3 {
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+.fade-in-5 {
+  animation: fadeInUp 1s ease-out 0.9s both;
+}
 
 @media (max-width: 768px) {
   :root {
@@ -168,11 +179,14 @@ body.modal-open {
   }
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
@@ -188,8 +202,9 @@ html, body {
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: calc(var(--index, 0) * 0.12s);
   will-change: opacity, transform;
 }
@@ -198,5 +213,3 @@ html, body {
   opacity: 1;
   transform: translateY(0);
 }
-
-

@@ -11,12 +11,14 @@ services:
       - portfolio_net
     environment:
       - PORT=3001
+      - NODE_ENV=production
+      - CORS_ORIGINS=https://your-domain.example
     volumes:
       - db_data:/app/database
     expose:
       - '3001'
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3001/api/portfolio/it || exit 1"]
+      test: ['CMD-SHELL', 'curl -f http://localhost:3001/api/portfolio/it || exit 1']
       interval: 30s
       timeout: 5s
       retries: 3

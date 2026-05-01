@@ -5,22 +5,22 @@ BEGIN TRANSACTION;
 -- ================================
 INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location, linkedin, github) VALUES
 ('it',
-  'Gabriele Mondino',
-  'Sono Gabriele Mondino, nato il 5 gennaio 2002 a Cuneo. Attualmente sono uno studente magistrale in Ingegneria Informatica (Computer Engineering) al Politecnico di Torino, dopo aver conseguito la laurea triennale. Mi appassiona lo sviluppo software, con particolare interesse per le applicazioni web e mobile.',
-  'gabrielemondino05@gmail.com',
-  '+393200325640',
-  'Borgo San Dalmazzo (CN), Italia',
-  'https://www.linkedin.com/in/gabriele-mondino-ba6944359?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
-  'https://github.com/Gabbo0501'
+  'Your Name',
+  'Demo biography for the Italian version of the portfolio. Replace this placeholder with your own public profile before publishing a personal deployment.',
+  'you@example.com',
+  '+390000000000',
+  'Your City, Italy',
+  'https://www.linkedin.com/in/your-profile',
+  'https://github.com/your-username'
 ),
 ('en',
-  'Gabriele Mondino',
-  'I am Gabriele Mondino, born on January 5, 2002 in Cuneo. I am currently a Master student in Computer Engineering at Politecnico di Torino, after completing my Bachelor degree. I am passionate about software development, with particular interest in web and mobile applications.',
-  'gabrielemondino05@gmail.com',
-  '+393200325640',
-  'Borgo San Dalmazzo (CN), Italy',
-  'https://www.linkedin.com/in/gabriele-mondino-ba6944359?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
-  'https://github.com/Gabbo0501'
+  'Your Name',
+  'Demo biography for the English version of the portfolio. Replace this placeholder with your own public profile before publishing a personal deployment.',
+  'you@example.com',
+  '+390000000000',
+  'Your City, Italy',
+  'https://www.linkedin.com/in/your-profile',
+  'https://github.com/your-username'
 );
 
 -- ================================

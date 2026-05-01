@@ -5,4 +5,11 @@ server/node_modules
 dist
 build
 .git
+.env
+.env.*
+!.env.example
+server/database/portfolio.db
+*.db
+*.db-shm
+*.db-wal
 *.log
