@@ -3,7 +3,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Install build dependencies for native modules (sqlite3)
-RUN apk add --no-cache python3 make g++ ca-certificates
+RUN apk add --no-cache python3 make g++ ca-certificates curl
 
 COPY server/package*.json ./
 RUN npm install --production

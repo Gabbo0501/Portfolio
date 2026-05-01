@@ -15,37 +15,124 @@ if (!fs.existsSync(dbDir)) {
 
 // Check if schema.sql is newer than database file and delete if needed
 const schemaPath = join(__dirname, 'database/schema.sql');
+const seedPath = join(__dirname, 'database/seed.sql');
 
-const shouldRecreate = () => {
-  if (!fs.existsSync(dbPath)) return false; // Let normal initialization handle new DB
-  if (!fs.existsSync(schemaPath)) return false;
-  
-  const dbStats = fs.statSync(dbPath);
-  const schemaStats = fs.statSync(schemaPath);
-  
-  return schemaStats.mtime > dbStats.mtime;
+const getMtimeMs = (filePath) => {
+  try {
+    return fs.statSync(filePath).mtimeMs;
+  } catch {
+    return null;
+  }
 };
 
-if (shouldRecreate()) {
-  console.log('Schema is newer than database. Deleting old database...');
+const newestInitSourceMtimeMs = () => {
+  const times = [getMtimeMs(schemaPath), getMtimeMs(seedPath)].filter(t => t != null);
+  return times.length ? Math.max(...times) : null;
+};
+
+
+if (process.env.DB_RESET === '1' && fs.existsSync(dbPath)) {
+  console.warn('DB_RESET=1 set. Deleting existing database...');
   fs.unlinkSync(dbPath);
+}
+
+if (fs.existsSync(dbPath)) {
+  const newestSource = newestInitSourceMtimeMs();
+  if (newestSource != null) {
+    const dbMtime = getMtimeMs(dbPath);
+    if (dbMtime != null && newestSource > dbMtime) {
+      if (process.env.DB_RESET_ON_SCHEMA_CHANGE === '1') {
+        console.warn('Schema/seed is newer than database. DB_RESET_ON_SCHEMA_CHANGE=1 set, recreating DB...');
+        fs.unlinkSync(dbPath);
+      } else {
+        console.warn('Schema/seed is newer than the existing database. Keeping DB as-is (set DB_RESET_ON_SCHEMA_CHANGE=1 to recreate).');
+      }
+    }
+  }
 }
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) throw err;
-  
-  // Normal initialization for new or empty database
-  db.get("SELECT count(*) as count FROM sqlite_master WHERE type='table'", [], (err, row) => {
-    if (err) return;
-    
-    if (row.count === 0) {
-      console.log('Initializing database with schema...');
-      const schema = fs.readFileSync(schemaPath, 'utf8');
+
+  db.exec('PRAGMA foreign_keys = ON;');
+
+  const applySchemaAndSeed = () => {
+    const schema = fs.readFileSync(schemaPath, 'utf8');
+    const seed = fs.existsSync(seedPath) ? fs.readFileSync(seedPath, 'utf8') : null;
+
+    db.serialize(() => {
       db.exec(schema, (err) => {
-        if (err) console.error('Error initializing database:', err);
-        else console.log('Database initialized successfully.');
+        if (err) {
+          console.error('Error applying schema:', err);
+          return;
+        }
+
+        if (!seed) {
+          console.log('Database initialized successfully (no seed file).');
+          return;
+        }
+
+        db.exec(seed, (err) => {
+          if (err) console.error('Error seeding database:', err);
+          else console.log('Database initialized and seeded successfully.');
+        });
       });
+    });
+  };
+
+  const resetAndReinitializeDatabase = () => {
+    console.warn('Resetting database to match current schema...');
+    const dropSql = `
+      PRAGMA foreign_keys = OFF;
+      DROP TABLE IF EXISTS project_images;
+      DROP TABLE IF EXISTS project_technologies;
+      DROP TABLE IF EXISTS project_translations;
+      DROP TABLE IF EXISTS projects;
+      DROP TABLE IF EXISTS course_topics;
+      DROP TABLE IF EXISTS courses;
+      DROP TABLE IF EXISTS exams;
+      DROP TABLE IF EXISTS certifications;
+      DROP TABLE IF EXISTS skills;
+      DROP TABLE IF EXISTS skill_categories;
+      DROP TABLE IF EXISTS education;
+      DROP TABLE IF EXISTS personal_info;
+      PRAGMA foreign_keys = ON;
+    `;
+
+    db.serialize(() => {
+      db.exec(dropSql, (err) => {
+        if (err) {
+          console.error('Error resetting database:', err);
+          return;
+        }
+        applySchemaAndSeed();
+      });
+    });
+  };
+
+  // Normal initialization for new, empty, or incompatible database
+  db.get("SELECT count(*) as count FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'", [], (err, row) => {
+    if (err) return;
+
+    if (row.count === 0) {
+      console.log('Initializing database (schema + seed)...');
+      applySchemaAndSeed();
+      return;
     }
+
+    // If the DB was created with an older schema, some required tables might be missing.
+    // This project treats the DB as derived content, so we can safely reset in dev by default.
+    db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='project_translations'", [], (err, tableRow) => {
+      if (err) return;
+      if (!tableRow) {
+        const resetAllowed = process.env.DB_RESET_ON_INCOMPATIBLE_SCHEMA !== '0';
+        if (resetAllowed) {
+          resetAndReinitializeDatabase();
+        } else {
+          console.error('Incompatible database schema detected (missing project_translations). Set DB_RESET_ON_INCOMPATIBLE_SCHEMA=1 (default) or delete database/portfolio.db manually.');
+        }
+      }
+    });
   });
 });
 
@@ -146,9 +233,10 @@ export function getAllExams(language = 'it') {
 export function getProjects(language = 'it') {
   return new Promise((resolve, reject) => {
     db.all(`
-      SELECT p.project_id, p.name, p.description, p.status, p.github_url, p.demo_url
+      SELECT p.project_id, t.name, t.description, t.status, p.github_url, p.demo_url
       FROM projects p
-      WHERE p.language = ?
+      JOIN project_translations t ON p.project_id = t.project_id
+      WHERE t.language = ?
       ORDER BY p.created_at DESC
     `, [language], (err, projects) => {
       if (err) return reject(err);

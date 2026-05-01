@@ -11,7 +11,7 @@ services:
     ports:
       - '3001:3001'
     volumes:
-      - db_data:/app/server/database
+      - db_data:/app/database
     environment:
       - PORT=3001
     healthcheck:

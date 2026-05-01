@@ -1,27 +1,41 @@
-# Portfolio personale — Gabriele Mondino
+# Personal Portfolio — Gabriele Mondino
 
-Un portfolio web (Single Page Application) sviluppato come progetto personale universitario. Frontend in React + Vite, backend in Node.js/Express e dati memorizzati in SQLite.
+Single Page Application (SPA) portfolio built as a personal university project.
 
-Questo repository contiene il codice del sito, il server API che fornisce i contenuti in modalità multilingua (it/en) e lo schema SQL per popolare il database locale.
+- Frontend: React + Vite
+- Backend: Node.js + Express
+- Data: SQLite (local file DB)
+- Content: server-driven and bilingual (`it` / `en`)
 
-## Cosa c'è qui
-- `client/` – codice frontend React (Vite)
-- `server/` – server Node.js (Express) + accesso a SQLite
+## Repository structure
 
-## Tecnologie
+- `client/`: React (Vite) app
+- `server/`: Express API + SQLite access + static images
+
+## Features
+
+- Bilingual content (`it` / `en`) served by the API
+- One endpoint to fetch the whole portfolio dataset
+- Static project images served by the backend under `/images`
+
+## Tech stack
+
 - Frontend: React, Vite, React-Bootstrap
 - Backend: Node.js, Express, sqlite3
-- Styling: CSS + Bootstrap icons
+- Styling: CSS, Bootstrap Icons
+- Deployment: Docker, Nginx (client image), Caddy (reverse proxy)
 
-## Requisiti
-- Node.js v16+ (consigliato)
+## Requirements
 
-## Setup e avvio (sviluppo)
+- Node.js 18+ (recommended)
+- npm
 
-1) Installa dipendenze
+## Local development
+
+1) Install dependencies
 
 ```powershell
-# Dal root del repository
+# from the repository root
 cd server
 npm install
 
@@ -29,50 +43,101 @@ cd ..\client
 npm install
 ```
 
-2) Avvia server e client (in terminali separati)
+2) Run server and client (two terminals)
 
 ```powershell
-# Terminale 1 — server (porta 3001)
+# terminal 1 — API server (default: http://localhost:3001)
 cd server
 npm run dev
 
-# Terminale 2 — client (porta 5173)
+# terminal 2 — Vite dev server (http://localhost:5173)
 cd client
 npm run dev
 ```
 
-2) Deploy rapido sulla VM (workflow minimo — copia/incolla)
+3) Open the app
 
-Dal tuo PC (PowerShell) — costruisci, salva e trasferisci le immagini + file di deploy sulla VM:
+- UI: http://localhost:5173
+- API example: http://localhost:3001/api/portfolio/it
 
-```powershell
-cd "c:\Users\gabri\OneDrive\Documenti\Portfolio\scripts"; powershell -NoProfile -ExecutionPolicy Bypass -File .\deploy_local.ps1
-ssh -i "c:\Users\gabri\OneDrive\Documenti\Portfolio\ssh-key-2025-10-10.key" ubuntu@129.152.14.247 "bash ~/deploy_vm.sh portfolio-images.tar"
+Vite is configured to proxy `/api` and `/images` to the backend during development.
 
-# 3) Se hai modificato solo la Caddyfile: ricrea solo caddy (plugin -> legacy -> run)
-sudo docker compose up -d --no-deps --force-recreate caddy || \
-  sudo docker-compose up -d --no-deps --force-recreate caddy || \
-  (sudo docker rm -f caddy || true; sudo docker run -d --name caddy --restart unless-stopped --network portfolio_net -p 80:80 -p 443:443 -v ~/Portfolio/app/Caddyfile:/etc/caddy/Caddyfile:ro -v caddy_data:/data -v caddy_config:/config caddy:2)
+## API
 
-# 4) Controlli e pulizia
-sudo docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-sudo docker logs --tail 200 caddy
-rm ~/portfolio-images.tar || true
+### Get full portfolio data
+
+`GET /api/portfolio/:lang`
+
+- `:lang` must be `it` or `en`
+- Response includes personal info, education, courses, exams, projects (with technologies + images), skills, certifications
+
+Example:
+
+```text
+GET http://localhost:3001/api/portfolio/en
 ```
 
+### Static images
+
+Images are served from the backend at:
+
+`GET /images/...`
+
+The files live under `server/public/images`.
+
 ## Database (SQLite)
-- Lo schema si trova in `server/database/schema.sql`.
-- Il db locale si trova in `server/database/portfolio.sql`.
-- Se il server rileva che lo schema è più recente del DB, ricrea il DB. ATTENZIONE: la ricreazione è distruttiva per i dati locali.
 
-## API principali
-- `GET /api/portfolio/:lang` — ritorna tutti i dati per la lingua richiesta (`it` o `en`)
+- Schema (DDL only): `server/database/schema.sql`
+- Seed data: `server/database/seed.sql`
+- Database file (created at runtime): `server/database/portfolio.db`
 
-Esempio: `GET http://localhost:3001/api/portfolio/it`
+On startup:
 
-## Internazionalizzazione
-- I contenuti leggono `language` (`it` / `en`) e il server restituisce i testi corrispondenti (personal_info, education, courses, projects, skills, certifications).
+- If the database does not exist (or has no tables), it is initialized by applying `schema.sql` and then `seed.sql`.
+- If an older/incompatible schema is detected, the server resets the DB to match the current schema (this project treats the DB as derived content).
 
-## Contatti
-- Autore: Gabriele Mondino
+Optional env flags:
+
+- `DB_RESET=1`: always delete the DB on startup
+- `DB_RESET_ON_SCHEMA_CHANGE=1`: delete the DB if schema/seed files are newer than the DB file
+- `DB_RESET_ON_INCOMPATIBLE_SCHEMA=0`: disable the automatic reset when an incompatible schema is detected
+
+Manual seeding (from `server/`):
+
+```powershell
+npm run seed
+npm run seed:reset
+```
+
+## Docker
+
+This repo includes Dockerfiles for both client and server.
+
+### Compose files
+
+- `docker-compose.yml`: starts `server` and `client`, but only the API is published on the host (`3001:3001`). The client is exposed only inside the Docker network.
+- `docker-compose.prod.yml`: starts `server` + `client` + `caddy`, and Caddy publishes ports 80/443 and routes traffic to the correct container.
+
+### Production-like stack (with reverse proxy)
+
+Use `docker-compose.prod.yml` (server + client + Caddy):
+
+```powershell
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Configure your domain in `Caddyfile`. The default file is set up to:
+
+- forward `/api/*` to the server container
+- forward `/images/*` to the server container
+- forward all other paths to the client container
+
+### Notes
+
+- The server database folder is persisted via a Docker volume (`db_data`).
+- Health check uses `GET /api/portfolio/it` on port 3001.
+
+## Contact
+
+- Author: Gabriele Mondino
 - Email: gabrielemondino05@gmail.com
