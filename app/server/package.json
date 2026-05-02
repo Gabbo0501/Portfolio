@@ -5,7 +5,7 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "start": "node index.mjs",
+    "start": "node seed.mjs && node index.mjs",
     "dev": "nodemon index.mjs",
     "build": "node --check index.mjs && node --check dao.mjs && node --check seed.mjs",
     "lint": "node --check index.mjs && node --check dao.mjs && node --check seed.mjs",

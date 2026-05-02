@@ -17,4 +17,5 @@ ENV PORT=3001
 ENV DB_PATH=/app/data/portfolio.db
 EXPOSE 3001
 
-CMD ["node", "index.mjs"]
+# Uso npm start per includere l'esecuzione del seed definita nel package.json
+CMD ["npm", "start"]
