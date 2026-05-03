@@ -24,6 +24,7 @@ export const translations = {
     // About Section
     about: {
       title: 'Chi Sono',
+      profilePhotoAlt: 'Foto profilo',
       educationTitle: 'Percorso Formativo',
       certificationsTitle: 'Certificazioni',
       interestsTitle: 'Interessi e Obiettivi',
@@ -131,6 +132,7 @@ export const translations = {
     // About Section
     about: {
       title: 'About Me',
+      profilePhotoAlt: 'Profile photo',
       educationTitle: 'Educational Path',
       certificationsTitle: 'Certifications',
       interestsTitle: 'Interests and Goals',

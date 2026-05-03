@@ -9,6 +9,7 @@ import './About.css';
 function About() {
   const [portfolioData, setPortfolioData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showProfilePhoto, setShowProfilePhoto] = useState(true);
   const { t } = useTranslation();
   const { language } = useLanguage();
   const sectionRef = useScrollReveal([loading]);
@@ -49,6 +50,7 @@ function About() {
   }
 
   const { personalInfo, education, certifications } = portfolioData;
+  const profilePhotoSrc = '/images/personal/about-me.png';
 
   return (
     <section id="about" className="about-section" ref={sectionRef}>
@@ -59,12 +61,27 @@ function About() {
           </Col>
         </Row>
 
-        <Row className="g-4 mb-5">
-          <Col>
-            <p className="about-bio reveal" style={{ '--index': 1 }}>
+        <Row className="g-4 mb-5 about-hero align-items-center">
+          <Col lg={7} className={showProfilePhoto ? 'order-1 order-lg-1' : undefined}>
+            <p className="about-bio about-bio-hero reveal" style={{ '--index': 1 }}>
               {personalInfo?.bio || t('about.defaultBio')}
             </p>
           </Col>
+
+          {showProfilePhoto && (
+            <Col lg={5} className="order-2 order-lg-2">
+              <div className="about-photo-frame reveal" style={{ '--index': 2 }}>
+                <img
+                  className="about-photo"
+                  src={profilePhotoSrc}
+                  alt={t('about.profilePhotoAlt')}
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setShowProfilePhoto(false)}
+                />
+              </div>
+            </Col>
+          )}
         </Row>
         <Row className="mb-5">
           <Col>
