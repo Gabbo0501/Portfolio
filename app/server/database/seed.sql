@@ -186,8 +186,8 @@ INSERT OR IGNORE INTO project_technologies (project_id, technology) VALUES
 INSERT OR IGNORE INTO courses (course_code, language, name, description, semester, year, credits, grade, url, is_featured) VALUES
 ('01UDFYG', 'it', 'Applicazioni Web I', 'Corso magistrale che presenta le principali tecniche per la realizzazione di applicazioni web, con focus sulla realizzazione di architetture frontend–backend con CORS.', '2°', 2025, 6, '30', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01UDFYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N', TRUE),
 ('01UDFYG', 'en', 'Web Applications I', 'Master’s course presenting the main techniques for developing web applications, with a focus on frontend–backend architectures using CORS.', '2nd', 2025, 6, '30', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01TXYYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N', TRUE),
-('01SQMYG', 'it', 'Data Science e Tecnologie per le Basi di Dati', 'Corso che affronta gli aspetti fondamentali della tecnologia dei DBMS e le modalità di gestione delle basi di dati per l''analisi.', '1°', 2025, 8, '30L', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQMYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N', TRUE),
-('01SQMYG', 'en', 'Data Science and Database Technologies', 'Course addressing fundamental aspects of DBMS technology and database management for data analysis.', '1st', 2025, 8, '30L', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQJYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N', TRUE);
+('01SQMYG', 'it', 'Software Engineering II', 'Corso magistrale sui metodi agili, la gestione del processo di sviluppo e la qualità del software, con forte enfasi sul lavoro di gruppo.', '1°', 2026, 6, '29', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQNOV&p_a_acc=2026&p_header=S&p_lang=IT&multi=N', TRUE),
+('01SQMYG', 'en', 'Software Engineering II', 'Master’s course on agile methods, software process management, and software quality, with strong emphasis on teamwork.', '1st', 2026, 6, '29', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQNOV&p_a_acc=2026&p_header=S&p_lang=IT&multi=N', TRUE);
 
 INSERT OR IGNORE INTO course_topics (course_code, language, topic) VALUES
 ('01UDFYG', 'it', 'JavaScript Avanzato'),
@@ -227,6 +227,7 @@ INSERT OR IGNORE INTO exams (exam_code, language, name, degree_type, credits, gr
 ('01SQMYG', 'it', 'Data Science e Tecnologie per le Basi di Dati', 'magistrale', 8, '30L', '2025-06-25', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQMYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
 ('02JEUYG', 'it', 'Formal languages and compilers', 'magistrale', 6, '29', '2025-09-10', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=02JEUYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
 ('01UDFYG', 'it', 'Applicazioni Web I', 'magistrale', 6, '30', '2025-09-17', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01UDFYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
+('01SQNOV', 'it', 'Software engineering II', 'magistrale', 6, '29', '2026-01-22', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQNOV&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
 
 -- MAGISTRALE (EN)
 ('02JSKOV', 'en', 'Human Computer Interaction', 'magistrale', 6, '29', '2026-02-02', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=02JSKOV&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
@@ -236,6 +237,7 @@ INSERT OR IGNORE INTO exams (exam_code, language, name, degree_type, credits, gr
 ('01SQMYG', 'en', 'Data Science and Database Technologies', 'magistrale', 8, '30L', '2025-06-25', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQJYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
 ('02JEUYG', 'en', 'Formal Languages and Compilers', 'magistrale', 6, '29', '2025-09-10', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=02JEUYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
 ('01UDFYG', 'en', 'Web Applications I', 'magistrale', 6, '30', '2025-09-17', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01TXYYG&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
+('01SQNOV', 'en', 'Software engineering II', 'magistrale', 6, '29', '2026-01-22', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=01SQNOV&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
 
 -- TRIENNALE (IT)
 ('14BHDOA', 'it', 'Informatica', 'triennale', 8, '30L', '2022-02-01', 'https://didattica.polito.it/pls/portal30/gap.pkg_guide.viewGap?p_cod_ins=14BHDYE&p_a_acc=2026&p_header=S&p_lang=IT&multi=N'),
