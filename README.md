@@ -128,13 +128,9 @@ The files live under `server/public/images`.
 - Optional private/local seed overrides: `server/database/seed.local.sql`
 - Runtime database file: `server/database/portfolio.db`
 
-The public seed is intentionally demo content. To initialize the DB with your real personal data without committing it:
+The public seed is intentionally demo content. To initialize the DB with your real personal data without committing it.
 
-```powershell
-Copy-Item server/database/seed.local.example.sql server/database/seed.local.sql
-```
-
-Then edit `server/database/seed.local.sql`. It is ignored by git and is applied after `seed.sql`, so it can override demo placeholders with your real public contact/profile data.
+Create `server/database/seed.local.sql`. It is ignored by git and is applied after `seed.sql`, so it can override demo placeholders with your real public contact/profile data.
 
 On startup:
 
