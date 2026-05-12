@@ -30,7 +30,7 @@ app/server/database/portfolio.db
 app/server/database/seed.local.sql
 
 # Personal images (keep out of public repo)
-app/server/public/images/personal/about-me.*
+app/server/public/images/**
 
 # Logs
 logs/
