@@ -1,5 +1,11 @@
 export const translations = {
   it: {
+    // SEO
+    seo: {
+      title: 'Gabriele Mondino - Software Engineer & System Administrator',
+      description: 'Portfolio di Gabriele Mondino, Software Engineer. Scopri i miei progetti, le mie competenze come sviluppatore web e il mio percorso professionale.'
+    },
+
     // Navigation
     nav: {
       home: 'Home',
@@ -109,6 +115,12 @@ export const translations = {
   },
 
   en: {
+    // SEO
+    seo: {
+      title: 'Gabriele Mondino - Software Engineer & System Administrator',
+      description: 'Portfolio of Gabriele Mondino, Software Engineer. Discover my projects, web development skills and professional journey.'
+    },
+
     // Navigation
     nav: {
       home: 'Home',
