@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /images/personal/
+
+# Evita di indicizzare file di configurazione e dati grezzi qualora esposti
+Disallow: /*.json$
+Disallow: /*.md$
+
+Sitemap: https://gabrielemondino.it/sitemap.xml
