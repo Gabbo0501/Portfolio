@@ -16,7 +16,8 @@ function SEOUpdater() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('seo.title') || 'Gabriele Mondino - Software Engineer & System Administrator';
+    document.title =
+      t('seo.title') || 'Gabriele Mondino - Software Engineer & System Administrator';
 
     const descMeta = document.querySelector('meta[name="description"]');
     if (descMeta) {

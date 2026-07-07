@@ -3,7 +3,8 @@ export const translations = {
     // SEO
     seo: {
       title: 'Gabriele Mondino - Software Engineer',
-      description: 'Portfolio di Gabriele Mondino, Software Engineer. Scopri i miei progetti, le mie competenze come sviluppatore web e il mio percorso professionale.'
+      description:
+        'Portfolio di Gabriele Mondino, Software Engineer. Scopri i miei progetti, le mie competenze come sviluppatore web e il mio percorso professionale.',
     },
 
     // Navigation
@@ -121,7 +122,8 @@ export const translations = {
     // SEO
     seo: {
       title: 'Gabriele Mondino - Software Engineer',
-      description: 'Portfolio of Gabriele Mondino, Software Engineer. Discover my projects, web development skills and professional journey.'
+      description:
+        'Portfolio of Gabriele Mondino, Software Engineer. Discover my projects, web development skills and professional journey.',
     },
 
     // Navigation
