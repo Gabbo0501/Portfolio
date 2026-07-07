@@ -6,6 +6,7 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { PortfolioDataProvider } from './contexts/PortfolioDataContext';
 import { useTranslation } from './hooks/useTranslation';
 import { useEffect } from 'react';
 import './App.css';
@@ -39,18 +40,20 @@ function SEOUpdater() {
 function App() {
   return (
     <LanguageProvider>
-      <SEOUpdater />
-      <div className="App">
-        <main className="main-content">
-          <Title />
-          <About />
-          <Courses />
-          <Projects />
-          <Skills />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <PortfolioDataProvider>
+        <SEOUpdater />
+        <div className="App">
+          <main className="main-content">
+            <Title />
+            <About />
+            <Courses />
+            <Projects />
+            <Skills />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </PortfolioDataProvider>
     </LanguageProvider>
   );
 }

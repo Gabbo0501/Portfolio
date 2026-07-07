@@ -95,9 +95,12 @@ export const translations = {
     contact: {
       title: 'Contattami',
       emailTitle: 'Email',
+      emailLabel: 'Invia email',
       linkedinTitle: 'LinkedIn',
+      linkedinLabel: 'Apri profilo LinkedIn',
       locationTitle: 'Località',
       githubTitle: 'GitHub',
+      githubLabel: 'Apri profilo GitHub',
     },
 
     // Footer
@@ -208,9 +211,12 @@ export const translations = {
     contact: {
       title: 'Contact Me',
       emailTitle: 'Email',
+      emailLabel: 'Send email',
       linkedinTitle: 'LinkedIn',
+      linkedinLabel: 'Open LinkedIn profile',
       locationTitle: 'Location',
       githubTitle: 'GitHub',
+      githubLabel: 'Open GitHub profile',
     },
 
     // Footer

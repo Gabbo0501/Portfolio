@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS personal_info (
     location TEXT,
     linkedin TEXT,
     github TEXT,
+    profile_photo_path TEXT,
     UNIQUE(language)
 );
 CREATE INDEX IF NOT EXISTS idx_personal_info_language ON personal_info(language);
@@ -54,15 +55,6 @@ CREATE TABLE IF NOT EXISTS courses (
 CREATE INDEX IF NOT EXISTS idx_courses_language ON courses(language);
 CREATE INDEX IF NOT EXISTS idx_courses_featured ON courses(language, is_featured);
 
-CREATE TABLE IF NOT EXISTS course_topics (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    course_code TEXT NOT NULL,
-    language TEXT NOT NULL,
-    topic TEXT NOT NULL,
-    UNIQUE(course_code, language, topic),
-    FOREIGN KEY (course_code, language) REFERENCES courses(course_code, language) ON DELETE CASCADE
-);
-
 -- ================================
 -- exams
 -- ================================
@@ -102,14 +94,6 @@ CREATE TABLE IF NOT EXISTS project_translations (
 );
 CREATE INDEX IF NOT EXISTS idx_project_translations_language ON project_translations(language);
 
-CREATE TABLE IF NOT EXISTS project_technologies (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    project_id TEXT NOT NULL,
-    technology TEXT NOT NULL,
-    UNIQUE(project_id, technology),
-    FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS project_images (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_id TEXT NOT NULL,
@@ -123,20 +107,46 @@ CREATE TABLE IF NOT EXISTS project_images (
 CREATE INDEX IF NOT EXISTS idx_project_images_project_order ON project_images(project_id, display_order);
 
 -- ================================
--- skills
+-- shared tags
 -- ================================
 CREATE TABLE IF NOT EXISTS skill_categories (
     category_id TEXT PRIMARY KEY,
     name_it TEXT NOT NULL,
-    name_en TEXT NOT NULL
+    name_en TEXT NOT NULL,
+    display_order INTEGER DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS skills (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS tags (
+    tag_id TEXT NOT NULL,
+    language TEXT NOT NULL,
+    label TEXT NOT NULL,
+    PRIMARY KEY (tag_id, language)
+);
+CREATE INDEX IF NOT EXISTS idx_tags_language ON tags(language);
+
+CREATE TABLE IF NOT EXISTS skill_tag (
     category_id TEXT NOT NULL,
-    technology TEXT NOT NULL,
-    UNIQUE(category_id, technology),
+    tag_id TEXT NOT NULL,
+    display_order INTEGER DEFAULT 0,
+    PRIMARY KEY (category_id, tag_id),
     FOREIGN KEY (category_id) REFERENCES skill_categories(category_id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_skill_tag_category_order ON skill_tag(category_id, display_order);
+
+CREATE TABLE IF NOT EXISTS project_tags (
+    project_id TEXT NOT NULL,
+    tag_id TEXT NOT NULL,
+    display_order INTEGER DEFAULT 0,
+    PRIMARY KEY (project_id, tag_id),
+    FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_project_tags_project_order ON project_tags(project_id, display_order);
+
+CREATE TABLE IF NOT EXISTS course_tags (
+    course_code TEXT NOT NULL,
+    tag_id TEXT NOT NULL,
+    display_order INTEGER DEFAULT 0,
+    PRIMARY KEY (course_code, tag_id)
 );
 
 -- ================================

@@ -1,33 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Card, Badge } from 'react-bootstrap';
-import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../hooks/useLanguage';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { usePortfolioData } from '../hooks/usePortfolioData';
 import './About.css';
 
 function About() {
-  const [portfolioData, setPortfolioData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [showProfilePhoto, setShowProfilePhoto] = useState(true);
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const { portfolioData, loading } = usePortfolioData();
   const sectionRef = useScrollReveal([loading]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await portfolioAPI.getPortfolioData(language);
-        setPortfolioData(data);
-      } catch (error) {
-        console.error('Error loading portfolio data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [language]); // Re-fetch when language changes
 
   if (loading) {
     return (
@@ -50,7 +34,7 @@ function About() {
   }
 
   const { personalInfo, education, certifications } = portfolioData;
-  const profilePhotoSrc = '/images/personal/about-me.png';
+  const profilePhotoSrc = personalInfo?.profilePhotoPath;
 
   return (
     <section id="about" className="about-section" ref={sectionRef}>
@@ -68,14 +52,15 @@ function About() {
             </p>
           </Col>
 
-          {showProfilePhoto && (
+          {showProfilePhoto && profilePhotoSrc && (
             <Col lg={5} className="order-2 order-lg-2">
               <div className="about-photo-frame reveal" style={{ '--index': 2 }}>
                 <img
                   className="about-photo"
                   src={profilePhotoSrc}
                   alt={t('about.profilePhotoAlt')}
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                   onError={() => setShowProfilePhoto(false)}
                 />

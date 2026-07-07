@@ -1,33 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Modal, Table } from 'react-bootstrap';
-import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../hooks/useLanguage';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { usePortfolioData } from '../hooks/usePortfolioData';
 import './Courses.css';
 
 function Courses() {
-  const [portfolioData, setPortfolioData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [showAllExams, setShowAllExams] = useState(false);
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const { portfolioData, loading } = usePortfolioData();
   const sectionRef = useScrollReveal([loading]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await portfolioAPI.getPortfolioData(language);
-        setPortfolioData(data);
-      } catch (error) {
-        console.error('Error loading courses:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [language]); // Re-fetch when language changes
 
   const handleCloseModal = () => setShowAllExams(false);
   const handleShowModal = () => setShowAllExams(true);

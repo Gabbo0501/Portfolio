@@ -99,14 +99,15 @@ const db = new sqlite3.Database(dbPath, (err) => {
     const dropSql = `
       PRAGMA foreign_keys = OFF;
       DROP TABLE IF EXISTS project_images;
-      DROP TABLE IF EXISTS project_technologies;
+      DROP TABLE IF EXISTS project_tags;
       DROP TABLE IF EXISTS project_translations;
       DROP TABLE IF EXISTS projects;
-      DROP TABLE IF EXISTS course_topics;
+      DROP TABLE IF EXISTS course_tags;
       DROP TABLE IF EXISTS courses;
       DROP TABLE IF EXISTS exams;
       DROP TABLE IF EXISTS certifications;
-      DROP TABLE IF EXISTS skills;
+      DROP TABLE IF EXISTS skill_tag;
+      DROP TABLE IF EXISTS tags;
       DROP TABLE IF EXISTS skill_categories;
       DROP TABLE IF EXISTS education;
       DROP TABLE IF EXISTS personal_info;
@@ -137,20 +138,34 @@ const db = new sqlite3.Database(dbPath, (err) => {
         return;
       }
 
+      const requiredTables = [
+        'project_translations',
+        'tags',
+        'skill_tag',
+        'project_tags',
+        'course_tags',
+      ];
+      const placeholders = requiredTables.map(() => '?').join(',');
+
       // If the DB was created with an older schema, some required tables might be missing.
       // This project treats the DB as derived content, so we can safely reset in dev by default.
-      db.get(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='project_translations'",
-        [],
-        (err, tableRow) => {
+      db.all(
+        `SELECT name FROM sqlite_master WHERE type='table' AND name IN (${placeholders})`,
+        requiredTables,
+        (err, tableRows) => {
           if (err) return;
-          if (!tableRow) {
+          const existingTables = new Set(tableRows.map((table) => table.name));
+          const missingTables = requiredTables.filter((table) => !existingTables.has(table));
+
+          if (missingTables.length > 0) {
             const resetAllowed = process.env.DB_RESET_ON_INCOMPATIBLE_SCHEMA !== '0';
             if (resetAllowed) {
               resetAndReinitializeDatabase();
             } else {
               console.error(
-                'Incompatible database schema detected (missing project_translations). Set DB_RESET_ON_INCOMPATIBLE_SCHEMA=1 (default) or delete database/portfolio.db manually.'
+                `Incompatible database schema detected (missing ${missingTables.join(
+                  ', '
+                )}). Set DB_RESET_ON_INCOMPATIBLE_SCHEMA=1 (default) or delete database/portfolio.db manually.`
               );
             }
           }
@@ -164,7 +179,7 @@ export function getPersonalInfo(language = 'it') {
   return new Promise((resolve, reject) => {
     db.get(
       `
-      SELECT name, bio, email, phone, location, linkedin, github
+      SELECT name, bio, email, phone, location, linkedin, github, profile_photo_path as profilePhotoPath
       FROM personal_info 
       WHERE language = ?
     `,
@@ -216,11 +231,13 @@ export function getFeaturedCourses(language = 'it') {
         courses.forEach((course, index) => {
           db.all(
             `
-          SELECT topic 
-          FROM course_topics 
-          WHERE course_code = ? AND language = ?
+          SELECT t.label as topic
+          FROM course_tags ct
+          JOIN tags t ON t.tag_id = ct.tag_id AND t.language = ?
+          WHERE ct.course_code = ?
+          ORDER BY ct.display_order ASC, t.label ASC
         `,
-            [course.course_code, language],
+            [language, course.course_code],
             (err, topics) => {
               if (err) return reject(err);
 
@@ -301,11 +318,13 @@ export function getProjects(language = 'it') {
           // Get technologies
           db.all(
             `
-          SELECT technology 
-          FROM project_technologies 
-          WHERE project_id = ?
+          SELECT t.label as technology
+          FROM project_tags pt
+          JOIN tags t ON t.tag_id = pt.tag_id AND t.language = ?
+          WHERE pt.project_id = ?
+          ORDER BY pt.display_order ASC, t.label ASC
         `,
-            [project.project_id],
+            [language, project.project_id],
             (err, technologies) => {
               if (err) return reject(err);
 
@@ -355,31 +374,34 @@ export function getSkills(language = 'it') {
     db.all(
       `
       SELECT 
+        tc.category_id as categoryId,
         CASE 
-          WHEN ? = 'it' THEN sc.name_it 
-          ELSE sc.name_en 
+          WHEN ? = 'it' THEN tc.name_it
+          ELSE tc.name_en
         END as category, 
-        s.technology
-      FROM skill_categories sc
-      JOIN skills s ON sc.category_id = s.category_id
-      ORDER BY sc.category_id, s.technology
+        t.label as technology
+      FROM skill_tag st
+      JOIN skill_categories tc ON tc.category_id = st.category_id
+      JOIN tags t ON t.tag_id = st.tag_id AND t.language = ?
+      ORDER BY tc.display_order ASC, st.display_order ASC, t.label ASC
     `,
-      [language],
+      [language, language],
       (err, skillsData) => {
         if (err) return reject(err);
 
         const grouped = {};
         skillsData.forEach((skill) => {
-          if (!grouped[skill.category]) {
-            grouped[skill.category] = [];
+          if (!grouped[skill.categoryId]) {
+            grouped[skill.categoryId] = {
+              categoryId: skill.categoryId,
+              category: skill.category,
+              technologies: [],
+            };
           }
-          grouped[skill.category].push(skill.technology);
+          grouped[skill.categoryId].technologies.push(skill.technology);
         });
 
-        const result = Object.keys(grouped).map((category) => ({
-          category,
-          technologies: grouped[category],
-        }));
+        const result = Object.values(grouped);
 
         resolve(result);
       }

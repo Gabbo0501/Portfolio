@@ -1,30 +1,14 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { portfolioAPI } from '../services/api';
+import { usePortfolioData } from '../hooks/usePortfolioData';
 import './Contact.css';
 
 function Contact() {
-  const { t, language } = useTranslation();
-  const [personal, setPersonal] = useState(null);
+  const { t } = useTranslation();
+  const { portfolioData } = usePortfolioData();
+  const personal = portfolioData?.personalInfo || null;
   const sectionRef = useScrollReveal([personal]);
-
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        const data = await portfolioAPI.getPortfolioData(language);
-        if (mounted) setPersonal(data.personalInfo || null);
-      } catch (err) {
-        console.error('Unable to load personal info for contact', err);
-      }
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, [language]);
 
   const name = personal?.name;
   const email = personal?.email;
@@ -52,8 +36,8 @@ function Contact() {
             <Row className="g-4">
               <Col md={6}>
                 <div className="contact-item reveal" style={{ '--index': 0 }}>
-                  <a className="contact-icon" href={emailUrl}>
-                    <i className="bi bi-envelope"></i>
+                  <a className="contact-icon" href={emailUrl} aria-label={t('contact.emailLabel')}>
+                    <i className="bi bi-envelope" aria-hidden="true"></i>
                   </a>
                   <div className="contact-info">
                     <h5>{t('contact.emailTitle')}</h5>
@@ -71,8 +55,9 @@ function Contact() {
                     href={linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={t('contact.linkedinLabel')}
                   >
-                    <i className="bi bi-linkedin"></i>
+                    <i className="bi bi-linkedin" aria-hidden="true"></i>
                   </a>
                   <div className="contact-info">
                     <h5>{t('contact.linkedinTitle')}</h5>
@@ -88,7 +73,7 @@ function Contact() {
               <Col md={6}>
                 <div className="contact-item reveal" style={{ '--index': 2 }}>
                   <div className="contact-icon">
-                    <i className="bi bi-geo-alt"></i>
+                    <i className="bi bi-geo-alt" aria-hidden="true"></i>
                   </div>
                   <div className="contact-info">
                     <h5>{t('contact.locationTitle')}</h5>
@@ -104,8 +89,9 @@ function Contact() {
                     href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={t('contact.githubLabel')}
                   >
-                    <i className="bi bi-github"></i>
+                    <i className="bi bi-github" aria-hidden="true"></i>
                   </a>
                   <div className="contact-info">
                     <h5>{t('contact.githubTitle')}</h5>

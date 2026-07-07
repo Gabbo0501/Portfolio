@@ -1,37 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
-import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../hooks/useLanguage';
+import { usePortfolioData } from '../hooks/usePortfolioData';
 import './Title.css';
 
 function Title() {
-  const [portfolioData, setPortfolioData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
   const { language, toggleLanguage } = useLanguage();
+  const { portfolioData, loading } = usePortfolioData();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 100);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await portfolioAPI.getPortfolioData(language);
-        setPortfolioData(data);
-      } catch (error) {
-        console.error('Error loading portfolio data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [language]); // Re-fetch when language changes
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);

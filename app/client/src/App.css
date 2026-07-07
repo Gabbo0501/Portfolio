@@ -56,55 +56,11 @@ body.modal-open {
   flex: 1;
 }
 
-.font-primary {
-  font-family: var(--font-family-primary);
-}
-
-.font-secondary {
-  font-family: var(--font-family-secondary);
-}
-
-.text-primary {
-  color: var(--primary-color) !important;
-}
-
-.text-secondary {
-  color: var(--secondary-color) !important;
-}
-
-.bg-dark {
-  background: var(--dark-color) !important;
-}
-
-.bg-gradient-primary {
-  background: var(--gradient-primary);
-}
-
-.bg-gradient-light {
-  background: var(--gradient-light);
-}
-
-.bg-gradient-accent {
-  background: var(--gradient-accent);
-}
-
-.bg-gradient-dark {
-  background: var(--gradient-dark);
-}
-
 .text-gradient {
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-.shadow-custom {
-  box-shadow: var(--shadow-md);
-}
-
-.shadow-custom-lg {
-  box-shadow: var(--shadow-lg);
 }
 
 .hover-lift {
@@ -119,18 +75,6 @@ body.modal-open {
 .hover-primary:hover {
   color: var(--secondary-color) !important;
   transition: var(--transition-fast);
-}
-
-.card-custom {
-  border: none;
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-base);
-}
-
-.card-custom:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-3px);
 }
 
 @keyframes fadeInUp {
@@ -168,9 +112,6 @@ body.modal-open {
 }
 .fade-in-3 {
   animation: fadeInUp 1s ease-out 0.5s both;
-}
-.fade-in-5 {
-  animation: fadeInUp 1s ease-out 0.9s both;
 }
 
 @media (max-width: 768px) {

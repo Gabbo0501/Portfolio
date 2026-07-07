@@ -1,29 +1,13 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
-import { portfolioAPI } from '../services/api';
+import { usePortfolioData } from '../hooks/usePortfolioData';
 import './Footer.css';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
-  const { t, language } = useTranslation();
-  const [personal, setPersonal] = useState(null);
-
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        const data = await portfolioAPI.getPortfolioData(language);
-        if (mounted) setPersonal(data.personalInfo || null);
-      } catch (err) {
-        console.error('Unable to load personal info for footer', err);
-      }
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, [language]);
+  const { t } = useTranslation();
+  const { portfolioData } = usePortfolioData();
+  const personal = portfolioData?.personalInfo || null;
 
   const githubUrl = personal?.github;
   const linkedinUrl = personal?.linkedin;

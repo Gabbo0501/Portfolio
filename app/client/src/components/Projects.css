@@ -93,9 +93,6 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(8, 65, 92, 0.1);
   position: relative;
-}
-
-.project-card {
   width: 100%;
   max-width: none;
 }
@@ -316,45 +313,8 @@
   box-shadow: 0 8px 25px rgba(8, 65, 92, 0.3);
 }
 
-.github-link:hover {
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(4, 30, 42, 0.3);
-}
-
 .github-link:hover::before {
   left: 0;
-}
-
-.demo-link {
-  background: #d69e2e;
-  color: white;
-  border: 2px solid transparent;
-}
-
-.demo-link:hover {
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(214, 158, 46, 0.4);
-}
-
-/* Projects Note */
-.projects-note {
-  text-align: center;
-  margin-top: 3rem;
-  padding: 2.5rem;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(8, 65, 92, 0.08);
-  border: 1px solid rgba(8, 65, 92, 0.1);
-  animation: fadeInUp 0.8s ease-out 0.8s both;
-}
-
-.projects-note p {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 0;
-  line-height: 1.7;
 }
 
 /* Loading State */

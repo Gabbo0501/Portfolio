@@ -1,38 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { portfolioAPI } from '../services/api';
 import { useTranslation } from '../hooks/useTranslation';
-import { useLanguage } from '../hooks/useLanguage';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { usePortfolioData } from '../hooks/usePortfolioData';
+import { toThumbnailPath } from '../utils/imagePaths';
 import './Projects.css';
 
 function Projects() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [lightboxProject, setLightboxProject] = useState(null); // Track which project lightbox is open
   const [lightboxImageIndex, setLightboxImageIndex] = useState(0); // Track active image in lightbox
   const { t } = useTranslation();
-  const { language } = useLanguage();
+  const { portfolioData, loading } = usePortfolioData();
+  const projects = portfolioData?.projects || [];
   const sectionRef = useScrollReveal([loading]);
 
   // API base URL for images â€“ empty in production so paths are relative
   // (Caddy / Vite proxy will forward /images/* to the server)
   const API_BASE = import.meta?.env?.VITE_API_BASE || '';
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await portfolioAPI.getPortfolioData(language);
-        setProjects(data.projects);
-      } catch (error) {
-        console.error('Error loading projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [language]); // Re-fetch when language changes
 
   const openLightbox = (project) => {
     const primaryIndex = project.images.findIndex((img) => img.isPrimary);
@@ -173,9 +157,12 @@ function Projects() {
                   {hasImages ? (
                     <>
                       <img
-                        src={`${API_BASE}/images/projects/${primaryImage.path}`}
+                        src={`${API_BASE}/images/projects/${toThumbnailPath(primaryImage.path)}`}
                         alt={primaryImage.alt}
                         className="project-img"
+                        loading={index < 2 ? 'eager' : 'lazy'}
+                        fetchPriority={index < 2 ? 'high' : 'auto'}
+                        decoding="async"
                         onError={(e) => {
                           e.target.style.display = 'none';
                           e.target.parentElement

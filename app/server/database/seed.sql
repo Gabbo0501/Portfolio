@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 -- ================================
 -- Personal info
 -- ================================
-INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location, linkedin, github) VALUES
+INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location, linkedin, github, profile_photo_path) VALUES
 ('it',
   'Mario Rossi',
   'Profilo professionale di esempio utilizzato per popolare il portfolio.',
@@ -11,7 +11,8 @@ INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location
   '+391234567890',
   'Torino, Italia',
   'https://linkedin.com/in/mariorossi',
-  'https://github.com/mariorossi'
+  'https://github.com/mariorossi',
+  '/images/personal/img.png'
 ),
 ('en',
   'John Doe',
@@ -20,7 +21,8 @@ INSERT OR IGNORE INTO personal_info (language, name, bio, email, phone, location
   '+391234567890',
   'Turin, Italy',
   'https://linkedin.com/in/johndoe',
-  'https://github.com/johndoe'
+  'https://github.com/johndoe',
+  '/images/personal/img.png'
 );
 
 -- ================================
@@ -77,35 +79,82 @@ INSERT OR IGNORE INTO education (language, degree, institution, description, sta
 );
 
 -- ================================
--- Skill categories + skills
+-- Tags
 -- ================================
-INSERT OR IGNORE INTO skill_categories (category_id, name_it, name_en) VALUES
-('frontend', 'Frontend', 'Frontend'),
-('backend', 'Backend', 'Backend'),
-('persistency', 'Persistenza', 'Persistency'),
-('tools', 'Strumenti', 'Tools'),
-('design', 'Design', 'Design'),
-('languages', 'Lingue', 'Languages');
+INSERT OR IGNORE INTO tags (tag_id, language, label) VALUES
+('html', 'it', 'Markup'),
+('html', 'en', 'Markup'),
+('css', 'it', 'Styling'),
+('css', 'en', 'Styling'),
+('javascript', 'it', 'Programmazione base'),
+('javascript', 'en', 'Programming basics'),
+('react', 'it', 'Interfacce UI'),
+('react', 'en', 'UI interfaces'),
+('nodejs', 'it', 'Runtime'),
+('nodejs', 'en', 'Runtime'),
+('express', 'it', 'Framework web'),
+('express', 'en', 'Web framework'),
+('python', 'it', 'Script'),
+('python', 'en', 'Scripting'),
+('java', 'it', 'OOP'),
+('java', 'en', 'OOP'),
+('mysql', 'it', 'DB relazionale'),
+('mysql', 'en', 'Relational DB'),
+('postgresql', 'it', 'DB SQL'),
+('postgresql', 'en', 'SQL DB'),
+('mongodb', 'it', 'DB documentale'),
+('mongodb', 'en', 'Document DB'),
+('git', 'it', 'Controllo versione'),
+('git', 'en', 'Version control'),
+('docker', 'it', 'Contenitori'),
+('docker', 'en', 'Containers'),
+('linux', 'it', 'Sistema operativo'),
+('linux', 'en', 'Operating system'),
+('figma', 'it', 'Prototipazione'),
+('figma', 'en', 'Prototyping'),
+('ux-design', 'it', 'Esperienza utente'),
+('ux-design', 'en', 'User experience'),
+('italian', 'it', 'Lingua italiana'),
+('italian', 'en', 'Italian language'),
+('english', 'it', 'Lingua inglese'),
+('english', 'en', 'English language'),
+('variables', 'it', 'Variabili'),
+('variables', 'en', 'Variables'),
+('control-flow', 'it', 'Flusso di controllo'),
+('control-flow', 'en', 'Control flow'),
+('sql', 'it', 'Query'),
+('sql', 'en', 'Querying');
 
-INSERT OR IGNORE INTO skills (category_id, technology) VALUES
-('frontend', 'HTML'),
-('frontend', 'CSS'),
-('frontend', 'JavaScript'),
-('frontend', 'React'),
-('backend', 'Node.js'),
-('backend', 'Express'),
-('backend', 'Python'),
-('backend', 'Java'),
-('persistency', 'MySQL'),
-('persistency', 'PostgreSQL'),
-('persistency', 'MongoDB'),
-('tools', 'Git'),
-('tools', 'Docker'),
-('tools', 'Linux'),
-('design', 'Figma'),
-('design', 'UX Design'),
-('languages', 'Italiano'),
-('languages', 'Inglese');
+-- ================================
+-- Skills
+-- ================================
+INSERT OR IGNORE INTO skill_categories (category_id, name_it, name_en, display_order) VALUES
+('frontend', 'Frontend', 'Frontend', 1),
+('backend', 'Backend', 'Backend', 2),
+('persistency', 'Persistenza', 'Persistency', 3),
+('tools', 'Strumenti', 'Tools', 4),
+('design', 'Design', 'Design', 5),
+('languages', 'Lingue', 'Languages', 6);
+
+INSERT OR IGNORE INTO skill_tag (category_id, tag_id, display_order) VALUES
+('frontend', 'html', 1),
+('frontend', 'css', 2),
+('frontend', 'javascript', 3),
+('frontend', 'react', 4),
+('backend', 'nodejs', 1),
+('backend', 'express', 2),
+('backend', 'python', 3),
+('backend', 'java', 4),
+('persistency', 'mysql', 1),
+('persistency', 'postgresql', 2),
+('persistency', 'mongodb', 3),
+('tools', 'git', 1),
+('tools', 'docker', 2),
+('tools', 'linux', 3),
+('design', 'figma', 1),
+('design', 'ux-design', 2),
+('languages', 'italian', 1),
+('languages', 'english', 2);
 
 -- ================================
 -- Projects
@@ -123,12 +172,12 @@ INSERT OR IGNORE INTO project_translations (project_id, language, name, descript
 ('project-3', 'it', 'Progetto 3', 'Applicazione full-stack.', 'Completato'),
 ('project-3', 'en', 'Project 3', 'Full-stack application.', 'Completed');
 
-INSERT OR IGNORE INTO project_technologies (project_id, technology) VALUES
-('project-1', 'React'),
-('project-1', 'Node.js'),
-('project-2', 'Express'),
-('project-2', 'PostgreSQL'),
-('project-3', 'Docker');
+INSERT OR IGNORE INTO project_tags (project_id, tag_id, display_order) VALUES
+('project-1', 'react', 1),
+('project-1', 'nodejs', 2),
+('project-2', 'express', 1),
+('project-2', 'postgresql', 2),
+('project-3', 'docker', 1);
 
 -- ================================
 -- Courses
@@ -139,13 +188,10 @@ INSERT OR IGNORE INTO courses (course_code, language, name, description, semeste
 ('C002', 'it', 'Basi di Dati', 'Fondamenti di database relazionali.', '2°', 2023, 6, '28', 'https://example.com', TRUE),
 ('C002', 'en', 'Databases', 'Fundamentals of relational databases.', '2nd', 2023, 6, '28', 'https://example.com', TRUE);
 
-INSERT OR IGNORE INTO course_topics (course_code, language, topic) VALUES
-('C001', 'it', 'Variabili'),
-('C001', 'it', 'Controllo di flusso'),
-('C001', 'en', 'Variables'),
-('C001', 'en', 'Control flow'),
-('C002', 'it', 'SQL'),
-('C002', 'en', 'SQL');
+INSERT OR IGNORE INTO course_tags (course_code, tag_id, display_order) VALUES
+('C001', 'variables', 1),
+('C001', 'control-flow', 2),
+('C002', 'sql', 1);
 
 -- ================================
 -- Exams

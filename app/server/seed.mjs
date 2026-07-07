@@ -25,14 +25,15 @@ const localSeed = fs.existsSync(localSeedPath) ? fs.readFileSync(localSeedPath, 
 const dropSql = `
   PRAGMA foreign_keys = OFF;
   DROP TABLE IF EXISTS project_images;
-  DROP TABLE IF EXISTS project_technologies;
+  DROP TABLE IF EXISTS project_tags;
   DROP TABLE IF EXISTS project_translations;
   DROP TABLE IF EXISTS projects;
-  DROP TABLE IF EXISTS course_topics;
+  DROP TABLE IF EXISTS course_tags;
   DROP TABLE IF EXISTS courses;
   DROP TABLE IF EXISTS exams;
   DROP TABLE IF EXISTS certifications;
-  DROP TABLE IF EXISTS skills;
+  DROP TABLE IF EXISTS skill_tag;
+  DROP TABLE IF EXISTS tags;
   DROP TABLE IF EXISTS skill_categories;
   DROP TABLE IF EXISTS education;
   DROP TABLE IF EXISTS personal_info;
@@ -44,27 +45,55 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
   db.exec('PRAGMA foreign_keys = ON;');
 
-  db.serialize(() => {
-    const steps = [];
-    if (reset) steps.push(dropSql);
-    steps.push(schema);
-    steps.push(seed);
-    if (localSeed) steps.push(localSeed);
+  const ensurePersonalInfoColumns = (callback) => {
+    db.all('PRAGMA table_info(personal_info)', (err, columns) => {
+      if (err) return callback(err);
 
-    const sql = steps.join('\n');
-    db.exec(sql, (err) => {
+      const hasProfilePhotoPath = columns.some((column) => column.name === 'profile_photo_path');
+      if (hasProfilePhotoPath) {
+        callback();
+        return;
+      }
+
+      db.exec('ALTER TABLE personal_info ADD COLUMN profile_photo_path TEXT', callback);
+    });
+  };
+
+  db.serialize(() => {
+    const initialSql = [reset ? dropSql : null, schema].filter(Boolean).join('\n');
+    const seedSql = [seed, localSeed].filter(Boolean).join('\n');
+
+    db.exec(initialSql, (err) => {
       if (err) {
         console.error('Seed failed:', err);
         process.exitCode = 1;
-      } else {
-        console.log(
-          `${reset ? 'Database reset + seeded successfully' : 'Database seeded successfully'}${
-            localSeed ? ' (including seed.local.sql)' : ''
-          }.`
-        );
+        db.close();
+        return;
       }
 
-      db.close();
+      ensurePersonalInfoColumns((err) => {
+        if (err) {
+          console.error('Seed failed:', err);
+          process.exitCode = 1;
+          db.close();
+          return;
+        }
+
+        db.exec(seedSql, (err) => {
+          if (err) {
+            console.error('Seed failed:', err);
+            process.exitCode = 1;
+          } else {
+            console.log(
+              `${reset ? 'Database reset + seeded successfully' : 'Database seeded successfully'}${
+                localSeed ? ' (including seed.local.sql)' : ''
+              }.`
+            );
+          }
+
+          db.close();
+        });
+      });
     });
   });
 });
